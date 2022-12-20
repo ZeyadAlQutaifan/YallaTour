@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "673532515251",
+    "project_id": "yallatour-4baf8",
+    "storage_bucket": "yallatour-4baf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673532515251:android:feef05d3ee2be203ceb1c6",
+        "android_client_info": {
+          "package_name": "com.example.yallatour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673532515251-h2ebqdni3jignckc6f3mkvn31nicq18b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALC1ZkgJjJvQxRrJWyNU3vCbRcSY7oPBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673532515251-h2ebqdni3jignckc6f3mkvn31nicq18b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

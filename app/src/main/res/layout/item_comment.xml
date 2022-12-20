@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgProfileImg"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/programmer"
+            app:civ_border_width="2dp"
+            android:layout_margin="@dimen/margin_4"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:textSize="@dimen/text_18"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/margin_4"
+            android:textColor="@color/background"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20-12-2022"
+        android:textSize="@dimen/text_12"
+        android:layout_marginHorizontal="@dimen/margin_4"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/margin_8"
+        android:layout_margin="@dimen/margin_4"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet risus nullam eget felis eget nunc lobortis mattis. Placerat duis ultricies lacus sed turpis tincidunt id. Sit amet cursus sit amet dictum. "/>
+
+</LinearLayout>
+
+</androidx.cardview.widget.CardView>
