@@ -103,7 +103,7 @@ public class Global {
         alert.show();
         return builder;
     }
-    public static  AlertDialog.Builder dialogYesNo(Context context,String title ,  String message , boolean flag , DialogInterface.OnClickListener positiveButton ){
+    public static AlertDialog.Builder dialogYesNo(Context context,String title ,  String message , boolean flag , DialogInterface.OnClickListener positiveButton ){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message);
         builder.setCancelable(flag);

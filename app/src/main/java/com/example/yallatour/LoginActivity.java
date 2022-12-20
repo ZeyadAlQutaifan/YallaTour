@@ -61,7 +61,8 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onSuccess(Void unused) {
                                        Global.dialogYesNo(LoginActivity.this, "Verification Email" , "Email Verification Hase been sent to your email address \n please verify your email then login" , true , new DialogInterface.OnClickListener() {
                                            public void onClick(DialogInterface dialog, int id) {
-                                               dialog.cancel();
+                                               dialog.dismiss();
+                                               Constant.AUTH.signOut();
                                            }
                                        });
                                         Log.v(Constant.TAG_V , "send email verification ");
