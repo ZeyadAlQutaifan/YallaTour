@@ -3,6 +3,7 @@ package com.example.yallatour;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -57,15 +58,20 @@ public class SignupActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-
-
                                     try {
                                         uploadUser();
+                                        Global.dialogYesNo(SignupActivity.this, "Account Created " , "Now you can verify your account and login" , true , new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.dismiss();
+                                                Constant.AUTH.signOut();
+                                                finish();
+                                            }
+                                        });
+                                        Constant.AUTH.signOut();
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
-                                    Constant.AUTH.signOut();
-                                  finish();
+
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -73,7 +79,6 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
-            Toast.makeText(this, "gggg", Toast.LENGTH_SHORT).show();
         }
     }
     private synchronized void uploadUser() throws InterruptedException {
