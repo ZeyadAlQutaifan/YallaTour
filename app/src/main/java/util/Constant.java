@@ -28,6 +28,7 @@ public class Constant {
     public static final FirebaseDatabase DATABASE = FirebaseDatabase.getInstance();
     public static boolean isAdmin = false ;
     public static final String LOREN_EXAMPLE = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet risus nullam eget felis eget nunc lobortis mattis. Placerat duis ultricies lacus sed turpis tincidunt id. Sit amet cursus sit amet dictum. Quam elementum pulvinar etiam non quam. Elementum sagittis vitae et leo duis ut diam quam nulla. Amet risus nullam eget felis eget nunc. Sed vulputate odio ut enim blandit volutpat maecenas volutpat. Congue eu consequat ac felis donec et. Accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu.";
-
+public static final int ALERT_TYPE_YES_NO = 1001;
+public static final int ALERT_TYPE_YES = 1002;
 
 }

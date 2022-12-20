@@ -1,11 +1,14 @@
 package util;
 
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,4 +89,31 @@ public class Global {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
+
+    public static  AlertDialog.Builder dialogYesNo(Context context,String title ,  String message , boolean flag , DialogInterface positiveButton, DialogInterface negativeButton ){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message);
+        builder.setCancelable(flag);
+
+        builder.setPositiveButton("Ok", (DialogInterface.OnClickListener) positiveButton);
+        builder.setNegativeButton("Cancel" , (DialogInterface.OnClickListener) negativeButton);
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.setTitle(title);
+        alert.show();
+        return builder;
+    }
+    public static  AlertDialog.Builder dialogYesNo(Context context,String title ,  String message , boolean flag , DialogInterface.OnClickListener positiveButton ){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message);
+        builder.setCancelable(flag);
+
+        builder.setPositiveButton("Ok",  positiveButton);
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.setTitle(title);
+        alert.show();
+        return builder;
+    }
+
 }

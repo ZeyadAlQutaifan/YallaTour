@@ -63,14 +63,16 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/etName"
         android:background="@drawable/edit_styl2"
-        android:paddingVertical="@dimen/padding_8"
+        android:paddingVertical="@dimen/padding_16"
         android:textColor="@color/background"
         android:textSize="@dimen/text_20"
         android:textStyle="bold"
         android:text="@string/user_name"
         android:layout_marginHorizontal="@dimen/margin_8"
         android:paddingHorizontal="@dimen/padding_4"/>
+
 
 </LinearLayout>
 
@@ -87,8 +89,9 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/etEmail"
                 android:background="@drawable/edit_styl2"
-                android:paddingVertical="@dimen/padding_8"
+                android:paddingVertical="@dimen/padding_16"
                 android:textColor="@color/background"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_20"
@@ -98,16 +101,29 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnEditProfile"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:paddingVertical="@dimen/padding_16"
+            app:icon="@drawable/ic_baseline_logout_24"
+            android:text="Edit "
+            android:textAppearance="@style/TextStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout4"
+            app:layout_constraintEnd_toEndOf="@+id/frameLayout4"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout4" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+
     <Button
         android:id="@+id/btnSignOut"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-
         android:paddingVertical="@dimen/padding_16"
         app:icon="@drawable/ic_baseline_logout_24"
         android:text="Signout"

@@ -3,6 +3,7 @@ package com.example.yallatour;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,7 +59,11 @@ public class LoginActivity extends AppCompatActivity {
                                 Constant.USER.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        //TODO show message
+                                       Global.dialogYesNo(LoginActivity.this, "Verification Email" , "Email Verification Hase been sent to your email address \n please verify your email then login" , true , new DialogInterface.OnClickListener() {
+                                           public void onClick(DialogInterface dialog, int id) {
+                                               dialog.cancel();
+                                           }
+                                       });
                                         Log.v(Constant.TAG_V , "send email verification ");
                                         Constant.AUTH.signOut();
                                     }
