@@ -8,11 +8,20 @@ import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
 import androidx.appcompat.app.AlertDialog;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import modules.Dashboard;
 
 public class Global {
     public static boolean validField(@NonNull List<TextView> input) {
@@ -115,5 +124,92 @@ public class Global {
         alert.show();
         return builder;
     }
+    public synchronized static DatabaseReference getUser(String id){
+        return Constant.users.child(id);
+    }
 
+    public static String getNullString(String title) {
+        if(title == null){
+            return  "" ;
+        }else {
+            return title;
+        }
+    }
+
+    public static String getImageNotFound(String s) {
+        if(s == null || s.isEmpty()){
+            return Constant.NO_PLACE_IMAGE;
+        }else{
+            return s;
+        }
+
+    }
+    public static void getDashboard(){
+        Constant.dashboard.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public static  DatabaseReference getPlace(String id){
+        return Constant.places.child(id);
+    }
+
+
+    public static void updateDashboard(int updateRequest) {
+        Constant.dashboard.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()) {
+                    Dashboard dashboard = snapshot.getValue(Dashboard.class);
+                    switch (updateRequest){
+                        case Constant.INCREASE_USER:
+                            dashboard.increaseUsers();
+                            break;
+                        case Constant.INCREASE_COMMENT:
+                            dashboard.increaseComments();
+                            break;
+                        case Constant.INCREASE_PLACE:
+                            dashboard.increasePlacesCount();
+                            break;
+                        case Constant.INCREASE_NAVIGATION:
+                            dashboard.increaseNavigationsCount();
+                            break;
+                        case Constant.INCREASE_NEARBY:
+                            dashboard.increaseNearbyCount();
+                            break;
+                        case Constant.DECREASE_PLACE :
+                            dashboard.decreasePlacesCount();
+                            break;
+                        case Constant.DECREASE_COMMENT:
+                            dashboard.decreaseComments();
+                            break;
+                        case Constant.DECREASE_NEARBY:
+                            dashboard.decreaseNearbyCount();
+                            break;
+                        case Constant.DECREASE_NAVIGATION:
+                            dashboard.decreaseNavigationsCount();
+                            break;
+                        case Constant.DECREASE_USER:
+                            dashboard.decreaseUsers();
+                            break;
+                    }
+                    Constant.dashboard.setValue(dashboard);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

@@ -2,6 +2,7 @@ package dashboard;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -17,19 +18,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.yallatour.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import modules.Comment;
+import modules.Dashboard;
+import modules.Place;
 import util.Constant;
+import util.Global;
 
 public class AddPlaceActivity extends AppCompatActivity {
 
-    private ArrayList<Uri> selectedImagesUri = new ArrayList<>();
+    private ArrayList<String> selectedImagesUri = new ArrayList<>();
 
     private LinearLayout images_list;
     private double longitude, latitude;
@@ -40,6 +55,8 @@ public class AddPlaceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_place);
+        etTitle = findViewById(R.id.etTitle);
+        etDescription = findViewById(R.id.etDescription);
         initComponent();
     }
 
@@ -50,10 +67,78 @@ public class AddPlaceActivity extends AppCompatActivity {
 
     public void savePlace(View view) {
 
+        uploadImages().addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()){
+                    uploadPlace();
+                    Global.updateDashboard(Constant.INCREASE_PLACE) ;
+
+                }
+            }
+        });
+    }
+
+
+    private void uploadPlace(){
+
+        Place place = preparePlace() ;
+         Constant.places.push().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Constant.places.push().setValue(place).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(AddPlaceActivity.this, "Done", Toast.LENGTH_SHORT).show();
+
+                        finish();
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Global.updateDashboard(Constant.INCREASE_PLACE);
+    }
+    private   Task<UploadTask.TaskSnapshot> uploadImages() {
+
+        Task<UploadTask.TaskSnapshot>  tasks = null;
+        for(int i = 0 ; i<selectedImagesUri.size() ; i++){
+            StorageReference imageName = Constant.placesImagesFolder.child(etTitle.getText().toString() + " " +System.currentTimeMillis ());
+            int finalI = i;
+            tasks = imageName.putFile(Uri.parse(selectedImagesUri.get(finalI))).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        selectedImagesUri.set(finalI, String.valueOf(uri));
+                    }
+                });}
+            });
+        }
+        return tasks;
+    }
+
+    private Place preparePlace() {
+        Place place = new Place();
+        place.setTitle(etTitle.getText().toString());
+        place.setDescription(etDescription.getText().toString());
+        place.setImages(selectedImagesUri);
+        place.setLat(32.00);
+        place.setLng(35.22);
+        place.setViews(0);
+        place.setNavigations(0);
+
+        return place;
     }
 
     public void openMapForResult(View view) {
-        // start google maps to pick a location
+
     }
 
     public void pickImages(View view) {
@@ -95,12 +180,12 @@ public class AddPlaceActivity extends AppCompatActivity {
                     Uri uri = clipData.getItemAt(i).getUri();
 
 
-                    selectedImagesUri.add(uri);
+                    selectedImagesUri.add(String.valueOf(uri));
                     Log.v(Constant.TAG_V , selectedImagesUri.toString());
 
                     //Log.v("AAA" ,selectionResult.get(i).toString() );
 
-                    addView(selectedImagesUri.get(i));
+                    addView(Uri.parse(selectedImagesUri.get(i)));
 
 
                 }

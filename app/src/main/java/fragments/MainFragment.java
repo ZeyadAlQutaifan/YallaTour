@@ -2,6 +2,7 @@ package fragments;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -14,11 +15,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +30,17 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.yallatour.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,31 +50,36 @@ import java.util.List;
 
 import GPS.GPSTracker;
 import adapters.PlaceAdapter;
+import dashboard.ShowPLacesActivity;
 import modules.Photos;
 import modules.Place;
 import util.Constant;
 import util.Global;
 
 public class MainFragment extends Fragment {
-    private final static int request_code = 101;
 
-private FloatingActionButton fabAdd;
+
+    private Query query;
+    private FirebaseRecyclerOptions<Place> options;
+    private FirebaseRecyclerAdapter<Place, MainFragment.PlaceViewHolder> firebaseRecyclerAdapter;
+private RecyclerView recyclerView;
+    private FloatingActionButton fabAdd;
     private FrameLayout frameWeatherData, frameRequestLocation;
     private Button btnRequestLocationPermission;
-private TextView txtCityName , txtTemp ;
+    private TextView txtCityName, txtTemp;
     double longitude = 0, latitude = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-fabAdd = view.findViewById(R.id.fabAdd);
+        fabAdd = view.findViewById(R.id.fabAdd);
         if (Constant.isAdmin) {
             fabAdd.setVisibility(View.VISIBLE);
         } else {
             fabAdd.setVisibility(View.GONE);
         }
-        RecyclerView recyclerView = view.findViewById(R.id.main_container);
+        recyclerView = view.findViewById(R.id.main_container);
         frameWeatherData = view.findViewById(R.id.frameWeatherData);
         frameRequestLocation = view.findViewById(R.id.frameRequestLocation);
         requestLocationPermission();
@@ -79,31 +96,15 @@ fabAdd = view.findViewById(R.id.fabAdd);
 
 
         recyclerView.setHasFixedSize(true);
-        List<String> urls = new ArrayList<>();
-        urls.add("https://th.bing.com/th/id/OIP._Dm-xl4kqIY-Mh-9D43JzwHaJ5?pid=ImgDet&rs=1");
-        urls.add("https://www.blacktomato.com/wp-content/uploads/2019/03/Petra-Monastery.jpg");
-        urls.add("https://th.bing.com/th/id/OIP.rPpsGHyx90hU-E3_h9_PbQHaE7?pid=ImgDet&rs=1");
+
 
 
         List<Place> places = new ArrayList<>();
-        places.add(new Place("Petra" , urls , Constant.LOREN_EXAMPLE , 35.22222 , 64.22222));
-        urls.add(0 , "https://th.bing.com/th/id/R.b2f936c2240ff12609f17c6311a89a94?rik=mbLYgGIwSWPuYQ&riu=http%3a%2f%2fpromotravel-eg.com%2fwp-content%2fuploads%2f2018%2f01%2fgpic1.jpg&ehk=5GlSOtkYnrgLmi%2f80WbkLTiiQa8Tb0Yi%2b%2br3YcIdliE%3d&risl=&pid=ImgRaw&r=0");
-        places.add(new Place("Wadi Rum" , urls , Constant.LOREN_EXAMPLE , 35.22222 , 64.22222));
-        places.add(new Place("Petra" , urls , Constant.LOREN_EXAMPLE , 35.22222 , 64.22222));
-        urls.add(0 , "https://th.bing.com/th/id/R.b2f936c2240ff12609f17c6311a89a94?rik=mbLYgGIwSWPuYQ&riu=http%3a%2f%2fpromotravel-eg.com%2fwp-content%2fuploads%2f2018%2f01%2fgpic1.jpg&ehk=5GlSOtkYnrgLmi%2f80WbkLTiiQa8Tb0Yi%2b%2br3YcIdliE%3d&risl=&pid=ImgRaw&r=0");
-        places.add(new Place("Wadi Rum" , urls , Constant.LOREN_EXAMPLE , 35.22222 , 64.22222));
-        places.add(new Place("Petra" , urls , Constant.LOREN_EXAMPLE , 35.22222 , 64.22222));
-        urls.add(0 , "https://th.bing.com/th/id/R.b2f936c2240ff12609f17c6311a89a94?rik=mbLYgGIwSWPuYQ&riu=http%3a%2f%2fpromotravel-eg.com%2fwp-content%2fuploads%2f2018%2f01%2fgpic1.jpg&ehk=5GlSOtkYnrgLmi%2f80WbkLTiiQa8Tb0Yi%2b%2br3YcIdliE%3d&risl=&pid=ImgRaw&r=0");
-        places.add(new Place("Wadi Rum" , urls , Constant.LOREN_EXAMPLE , 35.22222 , 64.22222));
-        places.add(new Place("Petra" , urls , Constant.LOREN_EXAMPLE , 35.22222 , 64.22222));
-        urls.add(0 , "https://th.bing.com/th/id/R.b2f936c2240ff12609f17c6311a89a94?rik=mbLYgGIwSWPuYQ&riu=http%3a%2f%2fpromotravel-eg.com%2fwp-content%2fuploads%2f2018%2f01%2fgpic1.jpg&ehk=5GlSOtkYnrgLmi%2f80WbkLTiiQa8Tb0Yi%2b%2br3YcIdliE%3d&risl=&pid=ImgRaw&r=0");
-        places.add(new Place("Wadi Rum" , urls , Constant.LOREN_EXAMPLE , 35.22222 , 64.22222));
+
 
 
 
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        PlaceAdapter adapter = new PlaceAdapter(getContext() , places);
-        recyclerView.setAdapter(adapter);
 
 
         return view;
@@ -111,8 +112,50 @@ fabAdd = view.findViewById(R.id.fabAdd);
 
 
     @Override
+    public void onStop() {
+        super.onStop();
+        firebaseRecyclerAdapter.stopListening();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
+        query = Constant.places;
+        options = new FirebaseRecyclerOptions.Builder<Place>().setQuery(query , Place.class).build();
+        firebaseRecyclerAdapter
+                = new FirebaseRecyclerAdapter<Place,MainFragment.PlaceViewHolder >(options){
+
+            @NonNull
+            @Override
+            public MainFragment.PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_list, parent, false);
+
+                return new MainFragment.PlaceViewHolder(v);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull MainFragment.PlaceViewHolder holder, int position, @NonNull Place model) {
+
+                holder.txtTitle.setText(Global.getNullString(model.getTitle()));
+                Glide.with(getActivity())
+                        .load(Global.getImageNotFound(model.getImages().get(0)))
+                        .centerCrop()
+                        .into(holder.imageView);
+
+                holder.container.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String id = String.valueOf(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey());
+                        Log.v(Constant.TAG_V , "==>" + id);
+                    }
+                });
+            }
+        };
+        recyclerView.setAdapter(firebaseRecyclerAdapter);
+        firebaseRecyclerAdapter.startListening();
+
+
     }
 
     @Override
@@ -121,6 +164,7 @@ fabAdd = view.findViewById(R.id.fabAdd);
 
         getLocation();
     }
+
 
     private synchronized void requestLocationPermission() {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -145,13 +189,13 @@ fabAdd = view.findViewById(R.id.fabAdd);
         } else {
             latitude = tracker.getLatitude();
             longitude = tracker.getLongitude();
-            Constant.LATITUDE = latitude ;
-            Constant.LONGITUDE =  longitude ;
+            Constant.LATITUDE = latitude;
+            Constant.LONGITUDE = longitude;
             showWeatherStatus();
         }
     }
 
-    private  void showWeatherStatus() {
+    private void showWeatherStatus() {
         // TODO Call open weather map, show result in frameWeatherData frame
         String weatherURL = Constant.WEATHER_URI +
                 Constant.LATITUDE_BLOCK.replace("{#}", String.valueOf(latitude)) +
@@ -160,7 +204,7 @@ fabAdd = view.findViewById(R.id.fabAdd);
                 Constant.AND +
                 Constant.KEY_BLOCK.replace("{#}", Constant.WEATHER_KEY);
 
-double disTest = Global.distFrom(latitude , longitude , 32.3428, 36.1970);
+        double disTest = Global.distFrom(latitude, longitude, 32.3428, 36.1970);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         // this is the error listener method which
 // we will call if we get any error from API.
@@ -206,5 +250,18 @@ double disTest = Global.distFrom(latitude , longitude , 32.3428, 36.1970);
         }
     });
 
+    public static class PlaceViewHolder extends  RecyclerView.ViewHolder{
 
+        TextView txtTitle ;
+
+        RoundedImageView imageView ;
+
+        CardView container ;
+        public PlaceViewHolder(@NonNull View itemView) {
+            super(itemView);
+            txtTitle = itemView.findViewById(R.id.txtTitle);
+            imageView = itemView.findViewById(R.id.imageView);
+            container = itemView.findViewById(R.id.container);
+        }
+    }
 }

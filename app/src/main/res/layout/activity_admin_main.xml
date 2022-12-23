@@ -86,6 +86,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:id="@+id/txtUserCount"
                                 android:layout_marginVertical="@dimen/margin_8"
                                 android:text="100,1 K"
                                 android:textColor="@color/white"
@@ -141,6 +142,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginVertical="@dimen/margin_8"
                                 android:text="10,5 M"
+                                android:id="@+id/txtNavigationsCount"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_26"
                                 android:textStyle="bold" />
@@ -197,6 +199,7 @@
                             android:layout_gravity="center"
                             android:layout_marginVertical="@dimen/margin_8"
                             android:text="6"
+                            android:id="@+id/txtNearbyCount"
                             android:textColor="@color/background"
                             android:textSize="@dimen/text_26"
                             android:textStyle="bold" />
@@ -257,6 +260,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginVertical="@dimen/margin_8"
                                 android:text="160,1 K"
+                                android:id="@+id/txtCommentsCount"
                                 android:textColor="@color/background"
                                 android:textSize="@dimen/text_26"
                                 android:textStyle="bold" />
@@ -310,6 +314,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginVertical="@dimen/margin_8"
                                 android:text="28"
+                                android:id="@+id/txtPlacesCount"
                                 android:textColor="@color/background"
                                 android:textSize="@dimen/text_26"
                                 android:textStyle="bold" />

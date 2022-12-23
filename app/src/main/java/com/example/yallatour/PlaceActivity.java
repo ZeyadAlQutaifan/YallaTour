@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -15,6 +16,8 @@ import java.util.List;
 
 import adapters.CommentAdapter;
 import modules.Comment;
+import util.Constant;
+import util.Global;
 
 public class PlaceActivity extends AppCompatActivity {
 
@@ -40,5 +43,9 @@ public class PlaceActivity extends AppCompatActivity {
 //        recyclerView.setLayoutManager(
 //                new LinearLayoutManager(this));
         imageSlider.setImageList(imageList);
+    }
+
+    public void navigateToPlace(View view) {
+        Global.updateDashboard(Constant.INCREASE_NAVIGATION);
     }
 }

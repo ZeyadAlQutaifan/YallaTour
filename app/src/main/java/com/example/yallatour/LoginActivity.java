@@ -11,14 +11,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dashboard.AdminMainActivity;
+import modules.User;
 import util.Constant;
 import util.Global;
 
@@ -49,12 +58,31 @@ public class LoginActivity extends AppCompatActivity {
                         public void onSuccess(AuthResult authResult) {
                             Constant.USER = Constant.AUTH.getCurrentUser();
                             if (Constant.USER.isEmailVerified()) {
-                                if(!isAdmin()){
-                                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-                                }else {
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                }
-                                finish();
+
+                                String id = Constant.USER.getUid();
+                                Global.getUser(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        User user = snapshot.getValue(User.class);
+                                        if(user != null){
+                                            Constant.isAdmin =user.isAdmin();
+                                            if (Constant.isAdmin) {
+                                                startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                                                finish();
+                                            } else {
+                                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                                finish();
+                                            }
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
                             }else{
                                 Constant.USER.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -81,8 +109,29 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-    private synchronized boolean isAdmin(){
-        Constant.isAdmin = true;
-        return true ;
+    private synchronized void isAdmin() {
+        synchronized (this){
+
+            Global.getUser(Constant.USER.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User user = snapshot.getValue(User.class);
+                    if(user != null){
+                        Constant.isAdmin =user.isAdmin();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+            notifyAll();
+
+        }
+
     }
 }

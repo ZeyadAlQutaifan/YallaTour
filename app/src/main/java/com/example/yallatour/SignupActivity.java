@@ -14,7 +14,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +86,16 @@ public class SignupActivity extends AppCompatActivity {
     }
     private synchronized void uploadUser() throws InterruptedException {
         Constant.USER = Constant.AUTH.getCurrentUser();
-        DatabaseReference mUserRef = Constant.DATABASE.getReference("Users");
-        mUserRef.child(Constant.USER.getUid()).setValue(new User("i" , "i" , "e" , false));
+       Constant.users.child(Constant.USER.getUid()).setValue(prepareUser());
+       Global.updateDashboard(Constant.INCREASE_USER);
         notifyAll();
+    }
+    private User prepareUser(){
+        User user = new User() ;
+        user.setAdmin(false);
+        user.setUsername(etFirstName.getText().toString()+ " " + etLastName.getText().toString());
+        user.setEmail(etEmail.getText().toString());
+        user.setImageUrl("");
+        return user;
     }
 }

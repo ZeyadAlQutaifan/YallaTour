@@ -193,6 +193,7 @@
         android:backgroundTint="@color/background"
         android:clickable="true"
         android:contentDescription="TODO"
+        android:onClick="navigateToPlace"
         android:src="@drawable/ic_baseline_navigation_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
