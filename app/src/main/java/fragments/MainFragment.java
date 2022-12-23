@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -31,6 +32,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.yallatour.PlaceActivity;
 import com.example.yallatour.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -137,6 +139,13 @@ private RecyclerView recyclerView;
             @Override
             protected void onBindViewHolder(@NonNull MainFragment.PlaceViewHolder holder, int position, @NonNull Place model) {
 
+                if (position%2 ==0){
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 256*5);
+                    holder.imageView.setLayoutParams(layoutParams);
+                }else{
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 200*5);
+                    holder.imageView.setLayoutParams(layoutParams);
+                }
                 holder.txtTitle.setText(Global.getNullString(model.getTitle()));
                 Glide.with(getActivity())
                         .load(Global.getImageNotFound(model.getImages().get(0)))
@@ -146,6 +155,9 @@ private RecyclerView recyclerView;
                 holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Intent intent = new Intent(getActivity() , PlaceActivity.class);
+                        intent.putExtra(Constant.PASSING_PLACE_KEY , model);
+                        startActivity(intent);
                         String id = String.valueOf(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey());
                         Log.v(Constant.TAG_V , "==>" + id);
                     }
@@ -204,7 +216,6 @@ private RecyclerView recyclerView;
                 Constant.AND +
                 Constant.KEY_BLOCK.replace("{#}", Constant.WEATHER_KEY);
 
-        double disTest = Global.distFrom(latitude, longitude, 32.3428, 36.1970);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         // this is the error listener method which
 // we will call if we get any error from API.
