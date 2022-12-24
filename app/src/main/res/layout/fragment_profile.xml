@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView"
+        android:id="@+id/imgUser"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:src="@drawable/programmer"
@@ -49,74 +49,100 @@
         app:layout_constraintBottom_toTopOf="@+id/btnSignOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleImageView">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/margin_8"
-    android:orientation="horizontal">
-    <ImageView
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_person"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/etName"
-        android:background="@drawable/edit_styl2"
-        android:paddingVertical="@dimen/padding_16"
-        android:textColor="@color/background"
-        android:textSize="@dimen/text_20"
-        android:textStyle="bold"
-        android:text="@string/user_name"
-        android:layout_marginHorizontal="@dimen/margin_8"
-        android:paddingHorizontal="@dimen/padding_4"/>
+        app:layout_constraintTop_toBottomOf="@+id/imgUser">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_8"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_person" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_8"
+                android:background="@drawable/edit_styl2"
+                android:paddingHorizontal="@dimen/padding_4"
+                android:paddingVertical="@dimen/padding_16"
+                android:inputType="text"
+                android:text="@string/user_name"
+                android:textColor="@color/background"
+                android:textSize="@dimen/text_20"
+                android:textStyle="bold" />
 
 
-</LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/padding_4"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_mail_outline_24"/>
+                android:src="@drawable/ic_baseline_mail_outline_24" />
+
             <EditText
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etEmail"
-                android:background="@drawable/edit_styl2"
-                android:paddingVertical="@dimen/padding_16"
-                android:textColor="@color/background"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_20"
-                android:text="lorenIpsum@loren.com"
                 android:layout_marginHorizontal="@dimen/margin_8"
-                android:paddingHorizontal="@dimen/padding_4"/>
+                android:inputType="textEmailAddress"
+                android:background="@drawable/edit_styl2"
+                android:paddingHorizontal="@dimen/padding_4"
+                android:paddingVertical="@dimen/padding_16"
+                android:text="lorenIpsum@loren.com"
+                android:textColor="@color/background"
+                android:textSize="@dimen/text_20"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnEditProfile"
-            style="@style/Widget.Material3.Button.ElevatedButton"
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:paddingVertical="@dimen/padding_16"
-            app:icon="@drawable/ic_baseline_logout_24"
-            android:text="Edit "
-            android:textAppearance="@style/TextStyle"
-            app:layout_constraintBottom_toBottomOf="@+id/frameLayout4"
-            app:layout_constraintEnd_toEndOf="@+id/frameLayout4"
-            app:layout_constraintStart_toStartOf="@+id/frameLayout4" />
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnEditProfile"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:paddingVertical="@dimen/padding_16"
+                android:text="Edit "
+                android:textAppearance="@style/TextStyle"
+                app:icon="@drawable/ic_baseline_edit_24"
+                app:layout_constraintBottom_toBottomOf="@+id/frameLayout4"
+                app:layout_constraintEnd_toEndOf="@+id/frameLayout4"
+                app:layout_constraintStart_toStartOf="@+id/frameLayout4" />
+            <Button
+                android:id="@+id/btnSaveChanges"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                android:paddingVertical="@dimen/padding_16"
+                android:text="Save changes"
+                android:textAppearance="@style/TextStyle"
+                app:icon="@drawable/ic_baseline_edit_24"
+                app:layout_constraintBottom_toBottomOf="@+id/frameLayout4"
+                app:layout_constraintEnd_toEndOf="@+id/frameLayout4"
+                app:layout_constraintStart_toStartOf="@+id/frameLayout4" />
+
+        </FrameLayout>
 
 
-        </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnSignOut"

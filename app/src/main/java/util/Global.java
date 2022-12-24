@@ -3,6 +3,8 @@ package util;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
@@ -136,7 +138,7 @@ public class Global {
         }
     }
 
-    public static String getImageNotFound(String s) {
+    public static String getPlaceImageNotFound(String s) {
         if(s == null || s.isEmpty()){
             return Constant.NO_PLACE_IMAGE;
         }else{
@@ -144,19 +146,17 @@ public class Global {
         }
 
     }
-    public static void getDashboard(){
-        Constant.dashboard.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+    public static String getUserImageNotFound(String s) {
+        if(s == null || s.isEmpty()){
+            return Constant.NO_USER_IMAGE;
+        }else{
+            return s;
+        }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
+
+
+
     public static  DatabaseReference getPlace(String id){
         return Constant.places.child(id);
     }
@@ -212,4 +212,38 @@ public class Global {
             }
         });
     }
+    public static Bitmap decodeSampledBitmapFromFile(String path, int reqWidth, int reqHeight)
+    { // BEST QUALITY MATCH
+
+        //First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+
+        // Calculate inSampleSize, Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        int inSampleSize = 1;
+
+        if (height > reqHeight)
+        {
+            inSampleSize = Math.round((float)height / (float)reqHeight);
+        }
+        int expectedWidth = width / inSampleSize;
+
+        if (expectedWidth > reqWidth)
+        {
+            //if(Math.round((float)width / (float)reqWidth) > inSampleSize) // If bigger SampSize..
+            inSampleSize = Math.round((float)width / (float)reqWidth);
+        }
+
+        options.inSampleSize = inSampleSize;
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+
+        return BitmapFactory.decodeFile(path, options);
+    }
+
 }

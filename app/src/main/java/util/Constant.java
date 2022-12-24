@@ -17,6 +17,7 @@ public class Constant {
     public static final String PLACES_KEY = "AIzaSyAbi35_q3IWWeWSmfh08K4GWo13O1OynLI";
     public static final String WEATHER_URI = "https://api.openweathermap.org/data/2.5/weather?";
     public static final String NO_PLACE_IMAGE = "https://firebasestorage.googleapis.com/v0/b/yallatour-4baf8.appspot.com/o/noImage%2Facb907ceb1d75d6297681e6b0962777f.png?alt=media&token=c76cece4-71da-4232-a7a0-daf174885e89" ;
+    public static final String NO_USER_IMAGE = "https://firebasestorage.googleapis.com/v0/b/yallatour-4baf8.appspot.com/o/noImage%2Fl60Hf.png?alt=media&token=925f058c-63d5-467d-8910-81083b346357";
     public static final int INCREASE_PLACE = 1;
     public static final int INCREASE_NAVIGATION = 2;
     public static final int INCREASE_COMMENT = 3;

@@ -107,7 +107,7 @@ public class AddPlaceActivity extends AppCompatActivity {
 
         Task<UploadTask.TaskSnapshot>  tasks = null;
         for(int i = 0 ; i<selectedImagesUri.size() ; i++){
-            StorageReference imageName = Constant.placesImagesFolder.child(etTitle.getText().toString() + " " +System.currentTimeMillis ());
+            StorageReference imageName = Constant.placesImagesFolder.child(etTitle.getText().toString()).child(etTitle.getText().toString() + System.currentTimeMillis ());
             int finalI = i;
             tasks = imageName.putFile(Uri.parse(selectedImagesUri.get(finalI))).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override

@@ -67,7 +67,7 @@ private RecyclerView mRecycleView ;
                 holder.txtTitle.setText(Global.getNullString(model.getTitle()));
                 holder.txtDescription.setText(Global.getNullString(model.getDescription()));
                 Glide.with(getApplicationContext())
-                        .load(Global.getImageNotFound(model.getImages().get(0)))
+                        .load(Global.getPlaceImageNotFound(model.getImages().get(0)))
                         .centerCrop()
                         .into(holder.imageView);
                 holder.txtNavigationsCount.setText(String.valueOf(model.getNavigations()));

@@ -148,7 +148,7 @@ private RecyclerView recyclerView;
                 }
                 holder.txtTitle.setText(Global.getNullString(model.getTitle()));
                 Glide.with(getActivity())
-                        .load(Global.getImageNotFound(model.getImages().get(0)))
+                        .load(Global.getPlaceImageNotFound(model.getImages().get(0)))
                         .centerCrop()
                         .into(holder.imageView);
 
