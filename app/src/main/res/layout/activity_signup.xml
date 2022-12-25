@@ -65,42 +65,44 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_marginHorizontal="@dimen/margin_right_16"
+                            android:orientation="horizontal"
                             android:weightSum="2">
+
                             <EditText
                                 android:id="@+id/etFirstName"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_top_8"
+                                android:layout_marginBottom="@dimen/margin_top_8"
+                                android:layout_weight="1"
+                                android:autofillHints=""
                                 android:background="@drawable/edit_style1"
                                 android:drawableStart="@drawable/ic_person"
                                 android:drawablePadding="@dimen/padding_8"
-                                android:layout_weight="1"
                                 android:hint="First Name"
-                                android:layout_marginTop="@dimen/margin_top_8"
-                                android:layout_marginBottom="@dimen/margin_top_8"
-android:nextClusterForward="@id/etLastName"
                                 android:inputType="text"
                                 android:maxLength="30"
                                 android:maxLines="1"
+                                android:nextClusterForward="@id/etLastName"
                                 android:padding="@dimen/padding_16"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/white"
                                 android:textSize="@dimen/text_14"
-                                android:autofillHints=""
                                 tools:ignore="SpUsage" />
 
                             <EditText
                                 android:id="@+id/etLastName"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_top_8"
+                                android:layout_marginBottom="@dimen/margin_top_8"
+                                android:layout_weight="1"
+                                android:autofillHints=""
                                 android:background="@drawable/edit_style1"
                                 android:drawableStart="@drawable/ic_person"
                                 android:drawablePadding="@dimen/padding_16"
                                 android:hint="Last Name"
-                                android:layout_marginTop="@dimen/margin_top_8"
-                                android:layout_marginBottom="@dimen/margin_top_8"
                                 android:inputType="text"
                                 android:maxLength="30"
                                 android:maxLines="1"
@@ -108,11 +110,11 @@ android:nextClusterForward="@id/etLastName"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/white"
                                 android:textSize="@dimen/text_14"
-                                android:autofillHints=""
                                 tools:ignore="SpUsage" />
 
 
                         </LinearLayout>
+
                         <EditText
                             android:id="@+id/etEmail"
                             android:layout_width="match_parent"

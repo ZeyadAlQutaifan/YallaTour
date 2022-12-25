@@ -4,6 +4,13 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/background</item>
         <item name="colorPrimaryVariant">@color/background</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.Material3.BodySmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.Material3.BodyLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.Material3.TitleMedium</item>
+        <item name="shapeAppearanceCornerExtraSmall">@style/ShapeAppearance.Material3.Corner.ExtraSmall</item>
+        <item name="colorSurfaceVariant">@color/white</item>
+        <item name="colorTertiaryContainer">@color/primary_green</item>
+
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -16,6 +23,7 @@
         <item name="android:textSize">@dimen/text_16</item>
 
     </style>
+    <style name="drf" parent="Theme.Material3.DayNight"/>
     <style name="TextStyle" parent="@android:style/TextAppearance">
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">#aacbb4</item>

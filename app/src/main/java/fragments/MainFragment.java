@@ -13,8 +13,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,28 +32,17 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.yallatour.AllPlacesActivity;
 import com.example.yallatour.PlaceActivity;
 import com.example.yallatour.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import GPS.GPSTracker;
-import adapters.PlaceAdapter;
-import dashboard.ShowPLacesActivity;
-import modules.Photos;
 import modules.Place;
 import util.Constant;
 import util.Global;
@@ -61,27 +50,29 @@ import util.Global;
 public class MainFragment extends Fragment {
 
 
-    private Query query;
-    private FirebaseRecyclerOptions<Place> options;
-    private FirebaseRecyclerAdapter<Place, MainFragment.PlaceViewHolder> firebaseRecyclerAdapter;
-private RecyclerView recyclerView;
-    private FloatingActionButton fabAdd;
+    FirebaseRecyclerAdapter<Place, MainFragment.MostViewHolder>   firebaseRecyclerAdapter;
+private RecyclerView  mostViewsRecycler;
     private FrameLayout frameWeatherData, frameRequestLocation;
     private Button btnRequestLocationPermission;
-    private TextView txtCityName, txtTemp;
+    private TextView txtCityName, txtTemp , txtViewAll;
     double longitude = 0, latitude = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        fabAdd = view.findViewById(R.id.fabAdd);
-        if (Constant.isAdmin) {
-            fabAdd.setVisibility(View.VISIBLE);
-        } else {
-            fabAdd.setVisibility(View.GONE);
-        }
-        recyclerView = view.findViewById(R.id.main_container);
+
+
+
+        mostViewsRecycler = view.findViewById(R.id.mostViewsRecycler);
+        txtViewAll = view.findViewById(R.id.txtViewAll);
+
+        txtViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , AllPlacesActivity.class));
+            }
+        });
         frameWeatherData = view.findViewById(R.id.frameWeatherData);
         frameRequestLocation = view.findViewById(R.id.frameRequestLocation);
         requestLocationPermission();
@@ -97,16 +88,9 @@ private RecyclerView recyclerView;
         });
 
 
-        recyclerView.setHasFixedSize(true);
 
-
-
-        List<Place> places = new ArrayList<>();
-
-
-
-
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+mostViewsRecycler.setHasFixedSize(true);
+mostViewsRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),  LinearLayoutManager.HORIZONTAL ,false));
 
 
         return view;
@@ -122,31 +106,29 @@ private RecyclerView recyclerView;
     @Override
     public void onStart() {
         super.onStart();
-        query = Constant.places;
-        options = new FirebaseRecyclerOptions.Builder<Place>().setQuery(query , Place.class).build();
-        firebaseRecyclerAdapter
-                = new FirebaseRecyclerAdapter<Place,MainFragment.PlaceViewHolder >(options){
+
+        loadMostViewedPlaces();
+    }
+
+    private void loadMostViewedPlaces() {
+        Query query = Constant.places;
+        FirebaseRecyclerOptions<Place>  options = new FirebaseRecyclerOptions.Builder<Place>().setQuery(query , Place.class).build();
+     firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Place,MainFragment.MostViewHolder >(options){
 
             @NonNull
             @Override
-            public MainFragment.PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public MainFragment.MostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_list, parent, false);
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_most_viewed, parent, false);
 
-                return new MainFragment.PlaceViewHolder(v);
+                return new MainFragment.MostViewHolder(v);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull MainFragment.PlaceViewHolder holder, int position, @NonNull Place model) {
+            protected void onBindViewHolder(@NonNull MainFragment.MostViewHolder holder, int position, @NonNull Place model) {
 
-                if (position%2 ==0){
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 256*5);
-                    holder.imageView.setLayoutParams(layoutParams);
-                }else{
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 200*5);
-                    holder.imageView.setLayoutParams(layoutParams);
-                }
-                holder.txtTitle.setText(Global.getNullString(model.getTitle()));
+
+                holder.txtTitle.setText(Global.getNullString(model.getTitle()).length() > 22?  Global.getNullString(model.getTitle()).substring(0,20)+".." :Global.getNullString(model.getTitle()));
                 Glide.with(getActivity())
                         .load(Global.getPlaceImageNotFound(model.getImages().get(0)))
                         .centerCrop()
@@ -156,7 +138,7 @@ private RecyclerView recyclerView;
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getActivity() , PlaceActivity.class);
-                        intent.putExtra(Constant.PASSING_PLACE_KEY , model);
+                        intent.putExtra(Constant.PASSING_OBJECT_KEY, model);
                         startActivity(intent);
                         String id = String.valueOf(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey());
                         Log.v(Constant.TAG_V , "==>" + id);
@@ -164,11 +146,12 @@ private RecyclerView recyclerView;
                 });
             }
         };
-        recyclerView.setAdapter(firebaseRecyclerAdapter);
+        mostViewsRecycler.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.startListening();
 
-
     }
+
+
 
     @Override
     public void onResume() {
@@ -227,7 +210,8 @@ private RecyclerView recyclerView;
                     JSONObject main = response.getJSONObject("main");
                     String temp = main.getString("temp");
                     String city = response.getString("name");
-                    txtTemp.setText(temp + "C");
+                    double C = (Double.parseDouble(temp) - 32) * (9 / 5);
+                    txtTemp.setText(String.format("%.2f" , C) + " C");
                     txtCityName.setText(city);
 
                 } catch (JSONException e) {
@@ -261,14 +245,14 @@ private RecyclerView recyclerView;
         }
     });
 
-    public static class PlaceViewHolder extends  RecyclerView.ViewHolder{
+public static class MostViewHolder extends  RecyclerView.ViewHolder{
 
         TextView txtTitle ;
 
-        RoundedImageView imageView ;
+        ImageView imageView ;
 
         CardView container ;
-        public PlaceViewHolder(@NonNull View itemView) {
+        public MostViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txtTitle);
             imageView = itemView.findViewById(R.id.imageView);

@@ -1,14 +1,13 @@
 package com.example.yallatour;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -27,8 +27,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapters.CommentAdapter;
-import modules.Comment;
 import modules.Place;
 import util.Constant;
 import util.Global;
@@ -37,25 +35,32 @@ public class PlaceActivity extends AppCompatActivity {
 
   Place place ;
     private List<SlideModel> imageList = new ArrayList<>();
-private TextView etTitle , etDescription , txtDistance;
+private TextView txtTitle, txtDexcription, txtDistance , txtCity , txtRate;
+private ImageView imgMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
 
-        place = (Place) getIntent().getSerializableExtra(Constant.PASSING_PLACE_KEY);
-        etTitle = findViewById(R.id.etTitle);
-        etDescription = findViewById(R.id.etDescription);
+        place = (Place) getIntent().getSerializableExtra(Constant.PASSING_OBJECT_KEY);
+        txtTitle = findViewById(R.id.txtTitle);
+        txtDexcription = findViewById(R.id.txtDescription);
         txtDistance = findViewById(R.id.txtDistance);
+        imgMain = findViewById(R.id.imgMain);
+        txtCity = findViewById(R.id.txtCity);
+        txtRate = findViewById(R.id.txtRate);
+
 
         for (int i = 0 ; i<place.getImages().size() ; i++){
             if(place.getImages().get(i) != null && !place.getImages().get(i).isEmpty()) {
                 imageList.add(new SlideModel(place.getImages().get(i), ScaleTypes.CENTER_CROP));
             }
         }
-        etTitle.setText(Global.getNullString(place.getTitle()));
-        etDescription.setText(Global.getNullString(place.getDescription()));
+        Glide.with(getApplicationContext()).load(place.getImages().get(0)).centerCrop().into(imgMain);
+        txtTitle.setText(Global.getNullString(place.getTitle()));
+        txtDexcription.setText(Global.getNullString(place.getDescription()));
         txtDistance.setText(String.format("%.2f" , Global.distFrom(Constant.LATITUDE , Constant.LONGITUDE , place.getLat() , place.getLng()) )+ " KM");
+        txtRate.setText(String.format("%.2f" , place.getRate()));
         showWeatherStatus();
         ImageSlider imageSlider = findViewById(R.id.slider);
 

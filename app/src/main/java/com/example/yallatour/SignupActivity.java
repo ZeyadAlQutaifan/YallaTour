@@ -93,7 +93,8 @@ public class SignupActivity extends AppCompatActivity {
     private User prepareUser(){
         User user = new User() ;
         user.setAdmin(false);
-        user.setUsername(etFirstName.getText().toString()+ " " + etLastName.getText().toString());
+        user.setFirstName(etFirstName.getText().toString());
+        user.setLastName(etLastName.getText().toString());
         user.setEmail(etEmail.getText().toString());
         user.setImageUrl("");
         return user;

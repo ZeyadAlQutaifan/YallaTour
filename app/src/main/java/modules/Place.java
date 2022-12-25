@@ -13,6 +13,24 @@ public class Place implements Serializable {
     private String description ;
     private double lng ;
     private double lat;
+    private double rate ;
+    private int rates ;
+    private String city ;
+
+    public Place(String title, List<String> images, int views, int navigations, int commentsCount, String description, double lng, double lat, double rate, int rates, String city) {
+        this.title = title;
+        this.images = images;
+        this.views = views;
+        this.navigations = navigations;
+        this.commentsCount = commentsCount;
+        this.description = description;
+        this.lng = lng;
+        this.lat = lat;
+        this.rate = rate;
+        this.rates = rates;
+        this.city = city;
+    }
+
 
     public Place(String title, List<String> images, int views, int navigations, int commentsCount, String description, double lng, double lat) {
         this.title = title;
@@ -100,5 +118,29 @@ public class Place implements Serializable {
 
     public void setLat(double lat) {
         this.lat = lat;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public int getRates() {
+        return rates;
+    }
+
+    public void setRates(int rates) {
+        this.rates = rates;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

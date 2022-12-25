@@ -21,7 +21,7 @@
     <string name="add_place">Add New Place</string>
     <string name="title_activity_location_picker">LocationPickerActivity</string>
     <string name="most_visited_places">Most Visited</string>
-    <string-array name="simple_items" >
+    <string-array name="simple_items">
         <item>restaurant</item>
         <item>gas_station</item>
         <item>hotels</item>

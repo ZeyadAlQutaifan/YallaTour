@@ -6,10 +6,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +22,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YallaTour"
         tools:targetApi="31">
+        <activity
+            android:name="dashboard.UpdateNearbyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="dashboard.AddNearbyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="dashboard.ShowNearbyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AllPlacesActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <provider
             android:name="com.vansuita.pickimage.provider.PickImageFileProvider"
             android:authorities="${applicationId}.com.vansuita.pickimage.provider"
@@ -39,9 +69,7 @@
         <activity
             android:name="dashboard.LocationPickerActivity"
             android:exported="true"
-            android:label="@string/title_activity_location_picker" >
-
-        </activity>
+            android:label="@string/title_activity_location_picker" />
         <activity
             android:name=".PlaceActivity"
             android:exported="true">
@@ -80,12 +108,12 @@
         <activity
             android:name=".WelcomeActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

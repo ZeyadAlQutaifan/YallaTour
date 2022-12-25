@@ -17,22 +17,19 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:id="@+id/bottom_navigation"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+       android:background="@color/background"
         android:elevation="3dp"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/bottom_bar_item"
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:itemRippleColor="@android:color/transparent"
-        app:itemIconSize="30dp"
-        app:labelVisibilityMode="selected"
-        android:background="@drawable/bottom_app_bar_rounded"
-        app:itemIconTint="@drawable/bottom_bar_item"
-        app:menu="@menu/bottom_menu_items"
 
-        />
+        app:menu="@menu/bottom_menu_items" />
 </androidx.constraintlayout.widget.ConstraintLayout >

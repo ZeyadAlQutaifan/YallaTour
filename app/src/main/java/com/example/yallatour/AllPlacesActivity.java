@@ -1,4 +1,4 @@
-package dashboard;
+package com.example.yallatour;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.yallatour.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.Query;
@@ -25,42 +24,45 @@ import modules.Place;
 import util.Constant;
 import util.Global;
 
-public class ShowPLacesActivity extends AppCompatActivity {
-private RecyclerView mRecycleView ;
-
-    private Query query;
-    private FirebaseRecyclerOptions<Place> options;
-    private  FirebaseRecyclerAdapter<Place , ShowPLacesActivity.PlaceViewHolder > firebaseRecyclerAdapter;
+public class AllPlacesActivity extends AppCompatActivity {
+ private RecyclerView recyclerView ;
+ private Query query;
+    FirebaseRecyclerOptions<Place> options ;
+    FirebaseRecyclerAdapter<Place, AllPlacesActivity.PlaceViewHolder> firebaseRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_show_places);
-        //Recycle View
-        mRecycleView = findViewById(R.id.recyclerView);
-        mRecycleView.setHasFixedSize(true);
-        mRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        setContentView(R.layout.activity_all_places);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this
+        ));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        loadAllPlaces();
+    }
+
+    private void loadAllPlaces() {
         query = Constant.places;
         options = new FirebaseRecyclerOptions.Builder<Place>().setQuery(query , Place.class).build();
         firebaseRecyclerAdapter
-                = new FirebaseRecyclerAdapter<Place,ShowPLacesActivity.PlaceViewHolder >(options){
+                = new FirebaseRecyclerAdapter<Place,AllPlacesActivity.PlaceViewHolder >(options){
 
             @NonNull
             @Override
-            public PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public AllPlacesActivity.PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
                 View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_place, parent, false);
 
-                return new PlaceViewHolder(v);
+                return new AllPlacesActivity.PlaceViewHolder(v);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull PlaceViewHolder holder, int position, @NonNull Place model) {
+            protected void onBindViewHolder(@NonNull AllPlacesActivity.PlaceViewHolder holder, int position, @NonNull Place model) {
 
                 holder.txtTitle.setText(Global.getNullString(model.getTitle()));
                 holder.txtDescription.setText(Global.getNullString(model.getDescription()));
@@ -71,29 +73,26 @@ private RecyclerView mRecycleView ;
                 holder.txtNavigationsCount.setText(String.valueOf(model.getNavigations()));
                 holder.txtViewsCount.setText(String.valueOf(model.getViews()));
                 holder.txtCommentsCount.setText(String.valueOf(model.getCommentsCount()));
+
+
                 holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), PlaceActivity.class);
+                        intent.putExtra(Constant.PASSING_OBJECT_KEY, model);
+                        startActivity(intent);
                         String id = String.valueOf(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey());
                         Log.v(Constant.TAG_V , "==>" + id);
                     }
                 });
             }
         };
-        mRecycleView.setAdapter(firebaseRecyclerAdapter);
+        recyclerView.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.startListening();
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        firebaseRecyclerAdapter.stopListening();
 
     }
 
-    public void toAddPlace(View view) {
-        startActivity(new Intent(ShowPLacesActivity.this , AddPlaceActivity.class));
-    }
     public static class PlaceViewHolder extends  RecyclerView.ViewHolder{
 
         TextView txtTitle ;
@@ -114,5 +113,4 @@ private RecyclerView mRecycleView ;
             container = itemView.findViewById(R.id.container);
         }
     }
-
 }
