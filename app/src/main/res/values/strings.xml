@@ -20,4 +20,28 @@
     <string name="enable_location_msg">enable location permissions to view weather data</string>
     <string name="add_place">Add New Place</string>
     <string name="title_activity_location_picker">LocationPickerActivity</string>
+    <string name="most_visited_places">Most Visited</string>
+    <string-array name="simple_items" >
+        <item>restaurant</item>
+        <item>gas_station</item>
+        <item>hotels</item>
+        <item>bank</item>
+        <item>beauty_salon</item>
+        <item>mosque</item>
+        <item>park</item>
+        <item>car_repair</item>
+        <item>school</item>
+        <item>stadium</item>
+        <item>gym</item>
+        <item>hospital</item>
+        <item>university</item>
+        <item>zoo</item>
+        <item>museum</item>
+        <item>airport</item>
+        <item>atm</item>
+        <item>cafe</item>
+        <item>doctor</item>
+        <item>embassy</item>
+        <item>library</item>
+    </string-array>
 </resources>
