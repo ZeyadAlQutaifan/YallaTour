@@ -67,23 +67,54 @@ public class AddPlaceActivity extends AppCompatActivity {
 
     public void savePlace(View view) {
 
-        uploadImages().addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()){
-                    uploadPlace();
-                    Global.updateDashboard(Constant.INCREASE_PLACE) ;
+        if (!etTitle.getText().toString().isEmpty()) {
+            if (etTitle.getText().toString().length() > 30) {
+                if (!etDescription.getText().toString().isEmpty()) {
+                    if (etDescription.getText().toString().length() > 350) {
+                        if (latitude != 0 && longitude != 0){
+                            if(selectedImagesUri.size() >=2) {
+                                uploadImages().addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            uploadPlace();
+                                            Global.updateDashboard(Constant.INCREASE_PLACE);
 
+                                        }
+                                    }
+                                });
+                            }else{
+                                Toast.makeText(this, "You must select 2 images at least ", Toast.LENGTH_LONG).show();
+
+                            }
+                        }else{
+                            Toast.makeText(this, "Please choose a location", Toast.LENGTH_LONG).show();
+                        }
+                    }else{
+                        etDescription.requestFocus();
+                        etDescription.setError("Description must be less than 350 character ");
+                    }
+                }else{
+                    etDescription.requestFocus();
+                    etDescription.setError("Please insert a description");
                 }
+            } else {
+                etTitle.requestFocus();
+                etTitle.setError("Title must be less than 30 character ");
+
             }
-        });
+        } else {
+            etTitle.requestFocus();
+            etTitle.setError("please insert a title ");
+
+        }
     }
 
 
-    private void uploadPlace(){
+    private void uploadPlace() {
 
-        Place place = preparePlace() ;
-         Constant.places.push().addValueEventListener(new ValueEventListener() {
+        Place place = preparePlace();
+        Constant.places.push().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Constant.places.push().setValue(place).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -103,34 +134,37 @@ public class AddPlaceActivity extends AppCompatActivity {
         });
         Global.updateDashboard(Constant.INCREASE_PLACE);
     }
-    private   Task<UploadTask.TaskSnapshot> uploadImages() {
 
-        Task<UploadTask.TaskSnapshot>  tasks = null;
-        for(int i = 0 ; i<selectedImagesUri.size() ; i++){
-            StorageReference imageName = Constant.placesImagesFolder.child(etTitle.getText().toString()).child(etTitle.getText().toString() + System.currentTimeMillis ());
+    private Task<UploadTask.TaskSnapshot> uploadImages() {
+
+        Task<UploadTask.TaskSnapshot> tasks = null;
+        for (int i = 0; i < selectedImagesUri.size(); i++) {
+            StorageReference imageName = Constant.placesImagesFolder.child(etTitle.getText().toString()).child(etTitle.getText().toString() + System.currentTimeMillis());
             int finalI = i;
             tasks = imageName.putFile(Uri.parse(selectedImagesUri.get(finalI))).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        selectedImagesUri.set(finalI, String.valueOf(uri));
-                    }
-                });}
+                    imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            selectedImagesUri.set(finalI, String.valueOf(uri));
+                        }
+                    });
+                }
             });
         }
         return tasks;
     }
 
     private Place preparePlace() {
+
         Place place = new Place();
         place.setTitle(etTitle.getText().toString());
         place.setDescription(etDescription.getText().toString());
         place.setImages(selectedImagesUri);
-        place.setLat(32.00);
-        place.setLng(35.22);
+        place.setLat(latitude);
+        place.setLng(longitude);
         place.setViews(0);
         place.setNavigations(0);
 
@@ -138,7 +172,7 @@ public class AddPlaceActivity extends AppCompatActivity {
     }
 
     public void openMapForResult(View view) {
-
+        startActivityForResult(new Intent(getApplicationContext(), LocationPickerActivity.class), 2);
     }
 
     public void pickImages(View view) {
@@ -158,13 +192,14 @@ public class AddPlaceActivity extends AppCompatActivity {
         intent.setType("image/*");
         startActivityForResult(intent, 1);
     }
+
     private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
         if (isGranted) {
 
             // Permission is granted. Continue the action or workflow in your
             // app.
         } else {
-           return;
+            return;
         }
     });
 
@@ -181,7 +216,7 @@ public class AddPlaceActivity extends AppCompatActivity {
 
 
                     selectedImagesUri.add(String.valueOf(uri));
-                    Log.v(Constant.TAG_V , selectedImagesUri.toString());
+                    Log.v(Constant.TAG_V, selectedImagesUri.toString());
 
                     //Log.v("AAA" ,selectionResult.get(i).toString() );
 
@@ -192,6 +227,11 @@ public class AddPlaceActivity extends AppCompatActivity {
             } else {
 
             }
+
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            latitude = data.getDoubleExtra("LAT", 0);
+            longitude = data.getDoubleExtra("LON", 0);
 
         }
     }

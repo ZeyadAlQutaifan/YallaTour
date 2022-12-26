@@ -50,7 +50,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             if(user != null){
                                 Constant.isAdmin =user.isAdmin();
                                 if (Constant.isAdmin) {
-                                    startActivity(new Intent(WelcomeActivity.this, dashboard.AdminMainActivity.class));
+                                    startActivity(new Intent(WelcomeActivity.this, AdminMainActivity.class));
                                     finish();
                                 } else {
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
