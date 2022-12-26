@@ -286,5 +286,27 @@ public class ProfileActivity extends AppCompatActivity {
     });
 
 
-
+    public void signout(View view) {
+        YesNoDialog yesNoDialog = new YesNoDialog(getApplicationContext() , "Logout" , "Are you sure you want to logout" , true );
+        yesNoDialog.create();
+        yesNoDialog.setTxtNegativeButtonText("No, stay logged in ");
+        yesNoDialog.setNegativeButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yesNoDialog.close();
+            }
+        });
+        yesNoDialog.setTxtPositiveButtonText("Yes, Logout");
+        yesNoDialog.setPositiveButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Constant.AUTH.signOut();
+                Constant.USER = null;
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+               finish();
+                yesNoDialog.close();
+            }
+        });
+    }
 }

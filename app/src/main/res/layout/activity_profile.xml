@@ -133,6 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:paddingVertical="@dimen/padding_16"
+        android:onClick="signout"
         android:text="Signout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/etEmail"
