@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -68,20 +69,15 @@ public class UpdateNearbyActivity extends AppCompatActivity {
     private void uploadService() {
 
         Nearby nearby = prepareNearby();
-        Constant.nearby.child(KEY_TO_UPDATE).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 Constant.nearby.child(KEY_TO_UPDATE).setValue(nearby).addOnCompleteListener(task -> {
                     Toast.makeText(UpdateNearbyActivity.this, "Done", Toast.LENGTH_SHORT).show();
+                    Log.v(Constant.TAG_V , "Done");
                     finish();
                 });
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+
 
     }
 
