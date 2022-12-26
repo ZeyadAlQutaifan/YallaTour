@@ -47,12 +47,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_4"
                     android:layout_weight="1"
+
                     app:cardCornerRadius="10dp">
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
                         android:background="@drawable/card_bg_green">
 
                         <LinearLayout
@@ -342,6 +342,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/margin_4"
+                    android:onClick="toProfile"
                     android:layout_weight="6"
                     app:cardCornerRadius="10dp">
 

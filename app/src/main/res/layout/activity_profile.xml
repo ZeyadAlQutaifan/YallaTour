@@ -1,0 +1,172 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="dashboard.ProfileActivity">
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autofillHints=""
+        android:background="@drawable/edit_style3"
+        android:drawableStart="@drawable/ic_person"
+        android:drawablePadding="@dimen/padding_12"
+        android:enabled="false"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:maxLength="30"
+        android:maxLines="1"
+        android:padding="@dimen/padding_16"
+        android:textColor="@color/background"
+        android:textColorHint="@color/background"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout6"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+        tools:ignore="SpUsage" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_right_16"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgUser">
+
+        <EditText
+            android:id="@+id/etFirstName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_top_8"
+            android:layout_marginBottom="@dimen/margin_top_8"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:background="@drawable/edit_style3"
+
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="@dimen/padding_8"
+            android:enabled="false"
+            android:hint="First Name"
+            android:inputType="text"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:nextClusterForward="@id/etLastName"
+            android:padding="@dimen/padding_16"
+            android:textColor="@color/background"
+            android:textColorHint="@color/background"
+            android:textSize="@dimen/text_14"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_top_8"
+            android:layout_marginBottom="@dimen/margin_top_8"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:background="@drawable/edit_style3"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="@dimen/padding_16"
+            android:enabled="false"
+            android:hint="Last Name"
+            android:inputType="text"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:padding="@dimen/padding_16"
+            android:textColor="@color/background"
+            android:textColorHint="@color/background"
+            android:textSize="@dimen/text_14"
+            tools:ignore="SpUsage" />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@color/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgUser"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/programmer"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <Button
+        android:id="@+id/btnResetPass"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:paddingVertical="@dimen/padding_16"
+        android:text="Reset Password"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignOut"
+        app:layout_constraintEnd_toEndOf="@+id/etEmail"
+        app:layout_constraintStart_toStartOf="@+id/etEmail" />
+
+    <Button
+        android:id="@+id/btnSignOut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:paddingVertical="@dimen/padding_16"
+        android:text="Signout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/etEmail"
+        app:layout_constraintStart_toStartOf="@+id/etEmail" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/action_sign_in"
+        android:foregroundTint="@color/background"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:visibility="invisible"
+        android:contentDescription="@string/action_sign_in"
+        android:foregroundTint="@color/background"
+        android:src="@drawable/ic_baseline_save_24"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

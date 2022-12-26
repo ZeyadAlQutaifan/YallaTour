@@ -103,13 +103,10 @@ public class ProfileFragment extends Fragment {
                         }
                     }
                 });
-                pickImageDialog.getPickFromGallery().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(pickPhoto , 1);
-                    }
+                pickImageDialog.getPickFromGallery().setOnClickListener(v -> {
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhoto , 1);
                 });
 
 
@@ -187,6 +184,24 @@ public class ProfileFragment extends Fragment {
 
                 }
             }
+        });
+        btnResetPass.setOnClickListener(v ->{
+            Constant.AUTH.sendPasswordResetEmail(Constant.USER.getEmail())
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setMessage("A reset password link has been sent to your email ("+Constant.USER.getEmail()+")");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        }
+                    });
         });
         return view;
     }
@@ -313,4 +328,6 @@ public class ProfileFragment extends Fragment {
 
         }
     });
+
+
 }

@@ -26,7 +26,7 @@ public class LocationPickerActivity extends FragmentActivity implements OnMapRea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location_picker);
+        setContentView(R.layout.activity_admin_location_picker);
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         setupAutoCompleteFragment();
     }

@@ -23,21 +23,35 @@
         android:theme="@style/Theme.YallaTour"
         tools:targetApi="31">
         <activity
-            android:name="dashboard.UpdateNearbyActivity"
+            android:name=".ShowUsersActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="dashboard.AddNearbyActivity"
+            android:name=".ProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="dashboard.ShowNearbyActivity"
+            android:name=".UpdateNearbyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AddNearbyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ShowNearbyActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -67,7 +81,7 @@
             android:value="AIzaSyAbi35_q3IWWeWSmfh08K4GWo13O1OynLI" />
 
         <activity
-            android:name="dashboard.LocationPickerActivity"
+            android:name=".LocationPickerActivity"
             android:exported="true"
             android:label="@string/title_activity_location_picker" />
         <activity
@@ -78,21 +92,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="dashboard.AddPlaceActivity"
+            android:name=".AddPlaceActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="dashboard.ShowPLacesActivity"
+            android:name=".ShowPLacesActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="dashboard.AdminMainActivity"
+            android:name=".AdminMainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

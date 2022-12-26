@@ -1,18 +1,23 @@
 package dashboard;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.yallatour.R;
@@ -75,13 +80,69 @@ private RecyclerView mRecycleView ;
                     @Override
                     public void onClick(View view) {
                         String id = String.valueOf(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey());
-                        Log.v(Constant.TAG_V , "==>" + id);
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                        builder.setTitle("Option");
+                        PopupMenu popupMenu = new PopupMenu(ShowPLacesActivity.this, holder.container);
+
+                        // Inflating popup menu from popup_menu.xml file
+                        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                // Toast message on menu item clicked
+                                Log.v(Constant.TAG_V ,"You Clicked " + menuItem.getTitle() );
+                                Toast.makeText(ShowPLacesActivity.this, "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+                                switch (menuItem.getItemId()){
+                                    case R.id.item_delete:
+                                        deleteItem(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey());
+                                        break;
+                                    case R.id.item_update:
+                                        updateItem(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey() , model);
+                                        break;
+                                }
+                                return true;
+                            }
+                        });
+                        // Showing the popup menu
+                        popupMenu.show();
+
+
+
                     }
                 });
             }
         };
         mRecycleView.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.startListening();
+    }
+
+    private void deleteItem(String key) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure, You wanted to delete this item");
+        alertDialogBuilder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Constant.places.child(key).removeValue();
+                        Global.updateDashboard(Constant.DECREASE_PLACE);
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void updateItem(String key, Place model) {
+
     }
 
     @Override

@@ -68,4 +68,8 @@ public class AdminMainActivity extends AppCompatActivity {
     public void toNearbyPlaces(View view) {
         startActivity(new Intent(getApplicationContext() , ShowNearbyActivity.class));
     }
+
+    public void toProfile(View view) {
+        startActivity(new Intent(getApplicationContext() , ProfileActivity.class));
+    }
 }
