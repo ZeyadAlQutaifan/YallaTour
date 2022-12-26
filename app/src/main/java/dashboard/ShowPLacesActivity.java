@@ -68,7 +68,7 @@ private RecyclerView mRecycleView ;
             protected void onBindViewHolder(@NonNull PlaceViewHolder holder, int position, @NonNull Place model) {
 
                 holder.txtTitle.setText(Global.getNullString(model.getTitle()));
-                holder.txtDescription.setText(Global.getNullString(model.getDescription()));
+                holder.txtDescription.setText(Global.getNullString(model.getDescription()).length() > 180?  Global.getNullString(model.getDescription()).substring(0,179)+".." :Global.getNullString(model.getDescription()));
                 Glide.with(getApplicationContext())
                         .load(Global.getPlaceImageNotFound(model.getImages().get(0)))
                         .centerCrop()
