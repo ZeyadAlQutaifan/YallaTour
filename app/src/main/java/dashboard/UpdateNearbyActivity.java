@@ -44,6 +44,7 @@ public class UpdateNearbyActivity extends AppCompatActivity {
         nearbyImage = findViewById(R.id.nearbyImage);
         nearby = (Nearby) getIntent().getSerializableExtra(Constant.PASSING_OBJECT_KEY);
         etTitle.setText(nearby.getTitle());
+
         String[] items = getResources().getStringArray(R.array.simple_items);
 
         int index = 0;
@@ -88,29 +89,36 @@ public class UpdateNearbyActivity extends AppCompatActivity {
 
 
         StorageReference imageName = Constant.nearbyImagesFolder.child(etTitle.getText().toString()).child(etTitle.getText().toString() + System.currentTimeMillis());
+if(imageUri != null) {
+    imageName.putFile(imageUri).addOnSuccessListener(taskSnapshot -> imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        @Override
+        public void onSuccess(Uri uri) {
+            imageUri = uri;
+            uploadService();
 
-        imageName.putFile(imageUri).addOnSuccessListener(taskSnapshot -> imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                imageUri = uri;
-                uploadService();
-
-            }
-        }));
-
+        }
+    }));
+}else{
+    uploadService();
+}
     }
 
 
     private Nearby prepareNearby() {
-        Nearby nearby = new Nearby();
-        nearby.setTitle(etTitle.getText().toString());
+        Nearby n1 = new Nearby();
+        n1.setTitle(etTitle.getText().toString());
         if (imageUri == null)
-            nearby.setImgUrl(nearby.getImgUrl());
+            n1.setImgUrl(nearby.getImgUrl());
         else
-            nearby.setImgUrl(String.valueOf(imageUri));
+            n1.setImgUrl(String.valueOf(imageUri));
 
-        nearby.setKey(autoCompleteTextView.getText().toString());
-        return nearby;
+        if(autoCompleteTextView.getText().toString().isEmpty()){
+            n1.setKey(nearby.getKey());
+        }else {
+            n1.setKey(autoCompleteTextView.getText().toString());
+        }
+
+        return n1;
     }
 
     public void saveNearbyService(View view) {
