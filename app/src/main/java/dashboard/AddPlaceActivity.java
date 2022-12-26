@@ -68,9 +68,9 @@ public class AddPlaceActivity extends AppCompatActivity {
     public void savePlace(View view) {
 
         if (!etTitle.getText().toString().isEmpty()) {
-            if (etTitle.getText().toString().length() > 30) {
+            if (etTitle.getText().toString().length() < 30) {
                 if (!etDescription.getText().toString().isEmpty()) {
-                    if (etDescription.getText().toString().length() > 350) {
+                    if (etDescription.getText().toString().length() < 350) {
                         if (latitude != 0 && longitude != 0){
                             if(selectedImagesUri.size() >=2) {
                                 uploadImages().addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
