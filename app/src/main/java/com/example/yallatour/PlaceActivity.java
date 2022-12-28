@@ -61,6 +61,7 @@ private ImageView imgMain;
         txtDexcription.setText(Global.getNullString(place.getDescription()));
         txtDistance.setText(String.format("%.2f" , Global.distFrom(Constant.LATITUDE , Constant.LONGITUDE , place.getLat() , place.getLng()) )+ " KM");
         txtRate.setText(String.format("%.2f" , place.getRate()));
+        txtCity.setText(Global.getNullCity(place.getCity()));
         showWeatherStatus();
         ImageSlider imageSlider = findViewById(R.id.slider);
 

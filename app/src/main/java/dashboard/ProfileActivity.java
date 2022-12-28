@@ -112,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
         btnSignOut = findViewById(R.id.btnSignOut);
         btnSignOut.setOnClickListener(view -> {
-            YesNoDialog yesNoDialog = new YesNoDialog(getApplicationContext() , "Logout" , "Are you sure you want to logout" , true );
+            YesNoDialog yesNoDialog = new YesNoDialog(ProfileActivity.this, "Logout" , "Are you sure you want to logout" , true );
             yesNoDialog.create();
             yesNoDialog.setTxtNegativeButtonText("No, stay logged in ");
             yesNoDialog.setNegativeButtonClickListener(v -> yesNoDialog.close());
@@ -169,11 +169,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         final String[] strPassword = {""};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
         builder.setTitle("Enter Your Password");
 
 // Set up the input
-        final EditText input = new EditText(getApplicationContext());
+        final EditText input = new EditText(ProfileActivity.this);
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         builder.setView(input);
@@ -182,33 +182,8 @@ public class ProfileActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                strPassword[0] = input.getText().toString();
-                FirebaseUser user = Constant.USER;
-                // Get auth credentials from the user for re-authentication
-                AuthCredential credential = EmailAuthProvider
-                        .getCredential(user.getEmail()  , strPassword[0]); // Current Login Credentials \\
-                // Prompt the user to re-provide their sign-in credentials
-                user.reauthenticate(credential)
-                        .addOnCompleteListener(task -> {
-                            Log.d(Constant.TAG_V, "User re-authenticated.");
-                            //Now change your email address \\
-                            //----------------Code for Changing Email Address----------\\
-                            FirebaseUser user2 = FirebaseAuth.getInstance().getCurrentUser();
-                            user2.updateEmail(etEmail.getText().toString())
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Constant.users.child(Constant.USER.getUid()).setValue(user1);
-                                                //  Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-                            //----------------------------------------------------------\\
-                        });
 
-                enableComponent(false);
-            }
+               }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -224,7 +199,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        builder.show();
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
 
 

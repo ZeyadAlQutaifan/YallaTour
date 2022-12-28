@@ -214,4 +214,10 @@ public class Global {
     }
 
 
+    public static String getNullCity(String city) {
+        if(city == null){
+            return "Cannot find a city ";
+        }
+        return city;
+    }
 }
