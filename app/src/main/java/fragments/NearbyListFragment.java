@@ -1,5 +1,6 @@
 package fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,17 +16,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.yallatour.NearbyMapActivity;
 import com.example.yallatour.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.Query;
 
 import modules.Nearby;
-import modules.Place;
 import util.Constant;
 
 
-public class NearestFragment extends Fragment {
+public class NearbyListFragment extends Fragment {
 
 
    private RecyclerView recyclerView;
@@ -45,13 +46,13 @@ public class NearestFragment extends Fragment {
     private void loadNearby() {
         Query query = Constant.nearby;
         FirebaseRecyclerOptions<Nearby> options = new FirebaseRecyclerOptions.Builder<Nearby>().setQuery(query, Nearby.class).build();
-        FirebaseRecyclerAdapter<Nearby, NearestFragment.NearbyViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Nearby, NearestFragment.NearbyViewHolder>(options) {
+        FirebaseRecyclerAdapter<Nearby, NearbyListFragment.NearbyViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Nearby, NearbyListFragment.NearbyViewHolder>(options) {
 
             @NonNull
             @Override
             public NearbyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_nearby, parent, false);
-                return new NearestFragment.NearbyViewHolder(v);
+                return new NearbyListFragment.NearbyViewHolder(v);
             }
 
             @Override
@@ -61,7 +62,9 @@ public class NearestFragment extends Fragment {
                 holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(getActivity() , NearbyMapActivity.class);
+                        intent.putExtra("KEY" , model.getKey());
+                        startActivity(intent);
                     }
                 });
             }

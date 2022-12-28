@@ -26,7 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class NearbyMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
     private GoogleMap mMap;
@@ -86,10 +86,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
-                Toast.makeText(MapsActivity.this, "result" + locationResult, Toast.LENGTH_SHORT).show();
+                Toast.makeText(NearbyMapActivity.this, "result" + locationResult, Toast.LENGTH_SHORT).show();
                
                 for(Location location : locationResult.getLocations()){
-                    Toast.makeText(MapsActivity.this, location.getLongitude() + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NearbyMapActivity.this, location.getLongitude() + "", Toast.LENGTH_SHORT).show();
                 }
             }
         };

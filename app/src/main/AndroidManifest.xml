@@ -140,7 +140,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MapsActivity"
+            android:name=".NearbyMapActivity"
             android:exported="true"
             android:label="@string/title_activity_maps" />
         <activity

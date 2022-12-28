@@ -26,9 +26,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.Query;
 
-import fragments.NearestFragment;
 import modules.Nearby;
-import modules.Place;
 import util.Constant;
 import util.Global;
 

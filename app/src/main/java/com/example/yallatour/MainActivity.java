@@ -3,19 +3,13 @@ package com.example.yallatour;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import fragments.MainFragment;
-import fragments.NearestFragment;
+import fragments.NearbyListFragment;
 import fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -49,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         .commit();
                 return true;
             case R.id.item_nearby:
-                getSupportFragmentManager().beginTransaction().setReorderingAllowed(true) .replace(R.id.fragmentContainer , NearestFragment.class , null)
+                getSupportFragmentManager().beginTransaction().setReorderingAllowed(true) .replace(R.id.fragmentContainer , NearbyListFragment.class , null)
                         .commit();
                 return true;
             case R.id.item_profile:
