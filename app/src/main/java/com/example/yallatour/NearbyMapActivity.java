@@ -8,6 +8,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -25,6 +27,9 @@ import com.example.yallatour.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import GPS.FetchData;
+import util.Constant;
+
 
 public class NearbyMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -32,22 +37,26 @@ public class NearbyMapActivity extends FragmentActivity implements OnMapReadyCal
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private final  static  int request_code = 101 ;
-    private double lat, lng ;
-
+    private final static int request_code = 101;
+    private double lat, lng;
+    private String key = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_nearby_places);
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getApplicationContext());
+       key = getIntent().getStringExtra("KEY");
+
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.my_map);
         mapFragment.onCreate(savedInstanceState);
         mapFragment.onResume();
         mapFragment.getMapAsync(this);
@@ -67,14 +76,14 @@ public class NearbyMapActivity extends FragmentActivity implements OnMapReadyCal
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-    getCurrentLocation();
+        getCurrentLocation();
     }
 
-    private void getCurrentLocation(){
-        if(ActivityCompat.checkSelfPermission(this , Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        && ActivityCompat.checkSelfPermission(this , Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        ){
-            ActivityCompat.requestPermissions(this , new String []{Manifest.permission.ACCESS_FINE_LOCATION} , request_code);
+    private void getCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, request_code);
             return;
         }
         LocationRequest locationRequest = LocationRequest.create();
@@ -87,25 +96,37 @@ public class NearbyMapActivity extends FragmentActivity implements OnMapReadyCal
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 Toast.makeText(NearbyMapActivity.this, "result" + locationResult, Toast.LENGTH_SHORT).show();
-               
-                for(Location location : locationResult.getLocations()){
+
+                for (Location location : locationResult.getLocations()) {
                     Toast.makeText(NearbyMapActivity.this, location.getLongitude() + "", Toast.LENGTH_SHORT).show();
                 }
             }
         };
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest , locationCallback , null);
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if (location != null){
+                if (location != null) {
                     lat = location.getLatitude();
                     lng = location.getLongitude();
 
-                    LatLng latLng = new LatLng(lat , lng);
-                    mMap.addMarker(new MarkerOptions().position(latLng).title("current location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng ,15 ));
+ //                   LatLng latLng = new LatLng(lat, lng);
+//                    mMap.addMarker(new MarkerOptions().position(latLng).title("current location"));
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+                    stringBuilder.append("location=" + lat + "," + lng);
+                    stringBuilder.append("&radius=1500");
+                    stringBuilder.append("&type=" + key);
+                    stringBuilder.append("&sensor=true");
+                    stringBuilder.append("&key=" + Constant.PLACES_KEY);
+                    String url = stringBuilder.toString();
+                    Object[] dataFetch = new Object[2];
+                    dataFetch[0] = mMap;
+                    dataFetch[1] = url;
+                    FetchData fetchData = new FetchData();
+                    fetchData.execute(dataFetch);
                 }
             }
         });
@@ -115,9 +136,9 @@ public class NearbyMapActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onRequestPermissionsResult(int RequestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(RequestCode, permissions, grantResults);
-        switch (RequestCode){
+        switch (RequestCode) {
             case request_code:
-                if(grantResults.length > 0 && grantResults[0] ==PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getCurrentLocation();
                 }
         }

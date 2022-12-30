@@ -210,7 +210,7 @@ mostViewsRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),  Linea
                     JSONObject main = response.getJSONObject("main");
                     String temp = main.getString("temp");
                     String city = response.getString("name");
-                    double C = (Double.parseDouble(temp) - 32) * (9 / 5);
+                    double C = Double.parseDouble(temp) - 273.15;
                     txtTemp.setText(String.format("%.2f" , C) + " C");
                     txtCityName.setText(city);
 
