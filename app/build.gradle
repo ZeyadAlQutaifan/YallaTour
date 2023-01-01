@@ -69,4 +69,5 @@ dependencies {
     implementation 'com.google.android.libraries.places:places-compat:1.1.0'
     implementation 'com.firebaseui:firebase-ui-database:8.0.2'
     implementation 'com.github.jrvansuita:PickImage:3.0.01'
+    implementation 'com.github.marcinmoskala:ArcSeekBar:0.31'
 }

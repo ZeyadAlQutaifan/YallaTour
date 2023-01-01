@@ -277,6 +277,7 @@ private RatingBar placeRating;
                                                         placeRating.setRating((float)newPlace.getRate());
                                                         alertDialog.dismiss();
                                                         firebaseRecyclerAdapter.startListening();
+                                                        Global.updateDashboard(Constant.INCREASE_COMMENT);
 
                                                     }
 
