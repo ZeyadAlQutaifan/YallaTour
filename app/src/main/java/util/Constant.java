@@ -44,6 +44,8 @@ public class Constant {
     public static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     public static DatabaseReference users = firebaseDatabase.getReference("Users");
     public static DatabaseReference places = firebaseDatabase.getReference("Places");
+    public static DatabaseReference reviews = firebaseDatabase.getReference("Reviews");
+
     public static DatabaseReference dashboard = firebaseDatabase.getReference("Dashboard");
     public static DatabaseReference nearby = firebaseDatabase.getReference("Nearby");
     public static FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();

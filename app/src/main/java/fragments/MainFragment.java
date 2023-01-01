@@ -137,8 +137,11 @@ mostViewsRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),  Linea
                 holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        final int i = holder.getAdapterPosition();
                         Intent intent = new Intent(getActivity() , PlaceActivity.class);
                         intent.putExtra(Constant.PASSING_OBJECT_KEY, model);
+                        intent.putExtra(Constant.PASSING_REF_KEY, getSnapshots().getSnapshot(i).getKey());
+
                         startActivity(intent);
                         String id = String.valueOf(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey());
                         Log.v(Constant.TAG_V , "==>" + id);

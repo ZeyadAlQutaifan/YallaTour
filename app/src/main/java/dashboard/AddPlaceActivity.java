@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.content.ClipData;
@@ -33,11 +32,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import modules.Comment;
-import modules.Dashboard;
 import modules.Place;
 import util.Constant;
 import util.Global;

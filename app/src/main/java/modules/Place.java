@@ -1,22 +1,52 @@
 package modules;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Place implements Serializable {
-    private String title ;
-    private List<String> images ;
-
-    private int views ;
+    private String title;
+    private List<String> images;
+    private int views;
     private int navigations;
-    private int commentsCount ;
-    private String description ;
-    private double lng ;
+    private int commentsCount;
+    private String description;
+    private double lng;
     private double lat;
-    private double rate ;
-    private int rates ;
-    private String city ;
+    private double rate;
+    private int rates;
+    private String city;
+    private List<String> reviews = new ArrayList<>();
 
+    public Place() {
+    }
+    public Place(String title, List<String> images, int views) {
+        this.title = title;
+        this.images = images;
+        this.views = views;
+        reviews = new ArrayList<>();
+    }
+    public Place(String title, List<String> images, int views, int navigations, String description, double lng, double lat) {
+        this.title = title;
+        this.images = images;
+        this.views = views;
+        this.navigations = navigations;
+        this.description = description;
+        this.lng = lng;
+        this.lat = lat;
+        reviews = new ArrayList<>();
+    }
+    public Place(String title, List<String> images, int views, int navigations, int commentsCount, String description, double lng, double lat) {
+        this.title = title;
+        this.images = images;
+        this.views = views;
+        this.navigations = navigations;
+        this.commentsCount = commentsCount;
+        this.description = description;
+        this.lng = lng;
+        this.lat = lat;
+        reviews = new ArrayList<>();
+    }
     public Place(String title, List<String> images, int views, int navigations, int commentsCount, String description, double lng, double lat, double rate, int rates, String city) {
         this.title = title;
         this.images = images;
@@ -29,10 +59,9 @@ public class Place implements Serializable {
         this.rate = rate;
         this.rates = rates;
         this.city = city;
+        reviews = new ArrayList<>();
     }
-
-
-    public Place(String title, List<String> images, int views, int navigations, int commentsCount, String description, double lng, double lat) {
+    public Place(String title, List<String> images, int views, int navigations, int commentsCount, String description, double lng, double lat, double rate, int rates, String city, List<String> reviews) {
         this.title = title;
         this.images = images;
         this.views = views;
@@ -41,7 +70,13 @@ public class Place implements Serializable {
         this.description = description;
         this.lng = lng;
         this.lat = lat;
+        this.rate = rate;
+        this.rates = rates;
+        this.city = city;
+        this.reviews = reviews;
     }
+
+
 
     public int getCommentsCount() {
         return commentsCount;
@@ -51,18 +86,7 @@ public class Place implements Serializable {
         this.commentsCount = commentsCount;
     }
 
-    public Place(String title, List<String> images, int views, int navigations, String description, double lng, double lat) {
-        this.title = title;
-        this.images = images;
-        this.views = views;
-        this.navigations = navigations;
-        this.description = description;
-        this.lng = lng;
-        this.lat = lat;
-    }
 
-    public Place() {
-    }
 
     public String getTitle() {
         return title;
@@ -143,4 +167,19 @@ public class Place implements Serializable {
     public void setCity(String city) {
         this.city = city;
     }
+
+    public List<String> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<String> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void increaseRates(){
+        rates++;
+    }
+
+
+
 }

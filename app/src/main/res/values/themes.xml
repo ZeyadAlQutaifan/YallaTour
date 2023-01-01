@@ -7,7 +7,10 @@
         <item name="textAppearanceBodySmall">@style/TextAppearance.Material3.BodySmall</item>
         <item name="textAppearanceBodyLarge">@style/TextAppearance.Material3.BodyLarge</item>
         <item name="textAppearanceTitleMedium">@style/TextAppearance.Material3.TitleMedium</item>
-        <item name="shapeAppearanceCornerExtraSmall">@style/ShapeAppearance.Material3.Corner.ExtraSmall</item>
+        <item name="shapeAppearanceCornerExtraSmall">
+            @style/ShapeAppearance.Material3.Corner.ExtraSmall
+        </item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.Material3.LabelLarge</item>
         <item name="colorSurfaceVariant">@color/white</item>
         <item name="colorTertiaryContainer">@color/primary_green</item>
 
@@ -23,9 +26,22 @@
         <item name="android:textSize">@dimen/text_16</item>
 
     </style>
-    <style name="drf" parent="Theme.Material3.DayNight"/>
+
+    <style name="drf" parent="Theme.Material3.DayNight" />
+
     <style name="TextStyle" parent="@android:style/TextAppearance">
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">#aacbb4</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="fontFamily">@font/rubik_regular</item>
     </style>
 </resources>

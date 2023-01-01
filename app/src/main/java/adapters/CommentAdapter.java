@@ -12,20 +12,19 @@ import com.example.yallatour.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import modules.Comment;
-import modules.Photos;
+import modules.Review;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder>{
-    List<Comment> mList = new ArrayList<>();
+    List<Review> mList = new ArrayList<>();
 
-    public CommentAdapter(List<Comment> mList) {
+    public CommentAdapter(List<Review> mList) {
         this.mList = mList;
     }
 
     @NonNull
     @Override
     public CommentAdapter.CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comment , parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_review, parent,false);
         return new CommentViewHolder(view);
 
     }
