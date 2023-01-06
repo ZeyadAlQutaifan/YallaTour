@@ -68,6 +68,7 @@ public class SignupActivity extends AppCompatActivity {
                                                 dialog.dismiss();
                                                 Constant.AUTH.signOut();
                                                 finish();
+
                                             }
                                         });
                                         Constant.AUTH.signOut();

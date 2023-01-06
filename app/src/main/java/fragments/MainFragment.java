@@ -143,8 +143,7 @@ mostViewsRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),  Linea
                         intent.putExtra(Constant.PASSING_REF_KEY, getSnapshots().getSnapshot(i).getKey());
 
                         startActivity(intent);
-                        String id = String.valueOf(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey());
-                        Log.v(Constant.TAG_V , "==>" + id);
+
                     }
                 });
             }

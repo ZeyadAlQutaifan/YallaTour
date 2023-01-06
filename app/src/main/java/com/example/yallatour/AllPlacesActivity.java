@@ -65,7 +65,12 @@ public class AllPlacesActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull AllPlacesActivity.PlaceViewHolder holder, int position, @NonNull Place model) {
 
                 holder.txtTitle.setText(Global.getNullString(model.getTitle()));
-                holder.txtDescription.setText(Global.getNullString(model.getDescription()));
+                if(model.getDescription().length() > 170){
+                    holder.txtDescription.setText(Global.getNullString(model.getDescription().substring(0 , 166) + "..."));
+                }else{
+                    holder.txtDescription.setText(Global.getNullString(model.getDescription()));
+                }
+
                 Glide.with(getApplicationContext())
                         .load(Global.getPlaceImageNotFound(model.getImages().get(0)))
                         .centerCrop()
@@ -78,11 +83,11 @@ public class AllPlacesActivity extends AppCompatActivity {
                 holder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        final int i = holder.getAdapterPosition();
                         Intent intent = new Intent(getApplicationContext(), PlaceActivity.class);
                         intent.putExtra(Constant.PASSING_OBJECT_KEY, model);
+                        intent.putExtra(Constant.PASSING_REF_KEY, getSnapshots().getSnapshot(i).getKey());
                         startActivity(intent);
-                        String id = String.valueOf(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getKey());
-                        Log.v(Constant.TAG_V , "==>" + id);
                     }
                 });
             }

@@ -124,7 +124,7 @@
                                 android:gravity="center"
                                 android:onClick="openReviews"
                                 android:text="Reviewes"
-                                android:textSize="12sp"
+                                android:textSize="@dimen/text_16"
                                 app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
                                 app:layout_constraintTop_toTopOf="@+id/imageView5" />

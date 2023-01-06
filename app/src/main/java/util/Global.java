@@ -40,10 +40,18 @@ public class Global {
                 }
             }
 
+
+
             if (textView.getInputType() == 129) {
                 if (textView.getText().toString().length() < 6) {
                     return showTextError(textView, Constant.INVALID_PASSWORD_LENGTH_MESSAGE);
                 }
+
+                char ch = textView.getText().toString().charAt(0);
+                if(Character.isUpperCase(ch)){
+                    return showTextError(textView, Constant.INVALID_EMAIL_PATTERN_MESSAGE);
+                }
+
                 passwords.add(textView);
             }
         }

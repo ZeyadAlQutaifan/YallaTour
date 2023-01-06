@@ -3,10 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/margin_4"
+    android:background="@color/white"
+    android:elevation="@dimen/dimen_1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,56 +20,58 @@
             android:id="@+id/img_profile"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
             android:src="@drawable/programmer"
             app:civ_border_color="@color/background"
             app:civ_border_width="@dimen/radius_2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/txtOwnerName" />
 
         <TextView
             android:id="@+id/txtOwnerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="Lorem ipsum dolor sit amet"
             android:textColor="@color/background"
             android:textSize="@dimen/text_18"
-            app:layout_constraintBottom_toBottomOf="@+id/img_profile"
             app:layout_constraintStart_toEndOf="@+id/img_profile"
-            app:layout_constraintTop_toTopOf="@+id/img_profile" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
             android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:text="11-Nov-2022"
-            app:layout_constraintStart_toStartOf="@+id/txtOwnerName"
-            app:layout_constraintTop_toBottomOf="@+id/txtOwnerName" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtBody"
+            app:layout_constraintTop_toBottomOf="@+id/txtBody" />
 
         <TextView
             android:id="@+id/txtBody"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/edit_style4"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet risus nullam eget felis eget nunc lobortis"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/img_profile"
-            app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+            app:layout_constraintStart_toStartOf="@+id/txtOwnerName"
+            app:layout_constraintTop_toBottomOf="@+id/txtOwnerName" />
 
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/img_profile"
+            app:layout_constraintBottom_toBottomOf="@+id/txtOwnerName"
             app:layout_constraintEnd_toEndOf="@+id/txtBody"
-            app:layout_constraintTop_toTopOf="@+id/img_profile"
-            app:srcCompat="@drawable/ic_baseline_star_24" />
+            app:layout_constraintTop_toTopOf="@+id/txtOwnerName"
+            android:src="@drawable/ic_baseline_star_24" />
 
         <TextView
             android:id="@+id/txtRate"
@@ -76,4 +83,6 @@
             app:layout_constraintEnd_toStartOf="@+id/imageView9"
             app:layout_constraintTop_toTopOf="@+id/imageView9" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
+
 </androidx.cardview.widget.CardView>

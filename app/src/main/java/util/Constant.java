@@ -32,6 +32,8 @@ public class Constant {
     public static String KEY_BLOCK = "appid={#}";
 
     public static final String REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";
+
+
     public static double LONGITUDE;
     public static double LATITUDE;
 

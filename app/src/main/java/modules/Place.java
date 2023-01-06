@@ -179,7 +179,15 @@ public class Place implements Serializable {
     public void increaseRates(){
         rates++;
     }
-
+    public void increaseViews(){
+       views++;
+    }
+    public void increaseNavigations(){
+        navigations++ ;
+    }
+    public void increaseCommentCount(){
+        commentsCount++;
+    }
 
 
 }

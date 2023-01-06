@@ -87,6 +87,8 @@ private RatingBar placeRating;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 place = snapshot.getValue(Place.class);
+                place.increaseViews();
+                Global.getPlace(key).setValue(place);
                 for (int i = 0 ; i<place.getImages().size() ; i++){
                     if(place.getImages().get(i) != null && !place.getImages().get(i).isEmpty()) {
                         imageList.add(new SlideModel(place.getImages().get(i), ScaleTypes.CENTER_CROP));
@@ -145,9 +147,6 @@ private RatingBar placeRating;
             // below line is use to display a toast message along with our error.
             Toast.makeText(getApplicationContext(), "Fail to get data..", Toast.LENGTH_SHORT).show();
         });
-        // at last we are adding our json
-        // object request to our request
-        // queue to fetch all the json data.
         queue.add(jsonObjectRequest);
 
     }
@@ -160,7 +159,8 @@ private RatingBar placeRating;
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
             Global.updateDashboard(Constant.INCREASE_NAVIGATION);
-
+            place.increaseNavigations();
+            Global.getPlace(key).setValue(place);
         }
     }
 
@@ -278,7 +278,8 @@ private RatingBar placeRating;
                                                         alertDialog.dismiss();
                                                         firebaseRecyclerAdapter.startListening();
                                                         Global.updateDashboard(Constant.INCREASE_COMMENT);
-
+                                                        place.increaseCommentCount();
+                                                        Global.getPlace(key).setValue(place);
                                                     }
 
                                                     @Override
