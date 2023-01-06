@@ -33,7 +33,6 @@ import util.Constant;
 
 public class NearbyMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -111,10 +110,6 @@ public class NearbyMapActivity extends FragmentActivity implements OnMapReadyCal
                     lat = location.getLatitude();
                     lng = location.getLongitude();
 
- //                   LatLng latLng = new LatLng(lat, lng);
-//                    mMap.addMarker(new MarkerOptions().position(latLng).title("current location"));
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                     StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                     stringBuilder.append("location=" + lat + "," + lng);
                     stringBuilder.append("&radius=1500");
@@ -125,6 +120,7 @@ public class NearbyMapActivity extends FragmentActivity implements OnMapReadyCal
                     Object[] dataFetch = new Object[2];
                     dataFetch[0] = mMap;
                     dataFetch[1] = url;
+
                     FetchData fetchData = new FetchData();
                     fetchData.execute(dataFetch);
                 }

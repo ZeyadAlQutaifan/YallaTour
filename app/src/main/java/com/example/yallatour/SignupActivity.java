@@ -57,10 +57,13 @@ public class SignupActivity extends AppCompatActivity {
         input.add(etConfirmPassword);
 
         if (Global.validField( input)) {
+
+
             Constant.AUTH.createUserWithEmailAndPassword(etEmail.getText().toString() , etPassword.getText().toString())
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
+
                                     try {
                                         uploadUser();
                                         Global.dialogYesNo(SignupActivity.this, "Account Created " , "Now you can verify your account and login" , true , new DialogInterface.OnClickListener() {
@@ -72,6 +75,7 @@ public class SignupActivity extends AppCompatActivity {
                                             }
                                         });
                                         Constant.AUTH.signOut();
+
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
@@ -87,7 +91,8 @@ public class SignupActivity extends AppCompatActivity {
     }
     private synchronized void uploadUser() throws InterruptedException {
         Constant.USER = Constant.AUTH.getCurrentUser();
-       Constant.users.child(Constant.USER.getUid()).setValue(prepareUser());
+
+       Constant.users.child(Constant.USER.getUid()).setValue( prepareUser() );
        Global.updateDashboard(Constant.INCREASE_USER);
         notifyAll();
     }

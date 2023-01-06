@@ -27,6 +27,7 @@ import modules.Dashboard;
 
 public class Global {
     public static boolean validField(@NonNull List<TextView> input) {
+
         List<TextView> passwords = new ArrayList<>();
         for (TextView textView : input) {
             if (textView.getText().toString().isEmpty()) {
@@ -178,6 +179,7 @@ public class Global {
                 if(snapshot.exists()) {
                     Dashboard dashboard = snapshot.getValue(Dashboard.class);
                     switch (updateRequest){
+
                         case Constant.INCREASE_USER:
                             dashboard.increaseUsers();
                             break;

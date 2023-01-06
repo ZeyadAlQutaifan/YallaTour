@@ -52,10 +52,12 @@ public class LoginActivity extends AppCompatActivity {
         inputs.add(etPassword);
         if (Global.validField(inputs)) {
 
-            Constant.AUTH.signInWithEmailAndPassword(etEmail.getText().toString().trim(), etPassword.getText().toString().trim())
+            Constant.AUTH.signInWithEmailAndPassword("emaiil@emaiol.com", "password")
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
+
+                            // if login is success
                             Constant.USER = Constant.AUTH.getCurrentUser();
                             if (Constant.USER.isEmailVerified()) {
 
@@ -84,9 +86,11 @@ public class LoginActivity extends AppCompatActivity {
                                 });
 
                             }else{
-                                Constant.USER.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                Constant.USER.sendEmailVerification()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
+
                                        Global.dialogYesNo(LoginActivity.this, "Verification Email" , "Email Verification Hase been sent to your email address \n please verify your email then login" , true , new DialogInterface.OnClickListener() {
                                            public void onClick(DialogInterface dialog, int id) {
                                                dialog.dismiss();
@@ -100,9 +104,12 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
 
-                    }).addOnFailureListener(new OnFailureListener() {
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+
+                            // If login does not success
                             Log.v(Constant.TAG_V , e.getMessage());
                         }
                     });

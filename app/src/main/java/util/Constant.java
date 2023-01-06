@@ -41,7 +41,9 @@ public class Constant {
     public static final String PASSWORD_DOES_NOT_MATCH_MESSAGE = "Password does not match! ";
     public static final String INVALID_EMAIL_PATTERN_MESSAGE = "Please insert a valid email";
     public static final String EMPTY_FIELD_MESSAGE = "This field is required!";
+
     public static FirebaseAuth AUTH = FirebaseAuth.getInstance();
+
     public static FirebaseUser USER;
     public static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     public static DatabaseReference users = firebaseDatabase.getReference("Users");

@@ -98,7 +98,6 @@ public class AddNearbyActivity extends AppCompatActivity {
         return tasks;
     }
 
-
     private Nearby prepareNearby() {
         Nearby nearby = new Nearby();
         nearby.setTitle(etTitle.getText().toString());

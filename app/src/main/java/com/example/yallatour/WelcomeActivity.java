@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -35,17 +36,21 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        TextView texy = findViewById(R.id.texy);
+
         Handler vehiclehandler = new Handler();
         vehiclehandler.postDelayed(new Runnable() {
             public void run() {
+
                 if (Constant.AUTH.getCurrentUser() != null) {
+
                     Constant.USER = Constant.AUTH.getCurrentUser();
 
                     String id = Constant.USER.getUid();
+
                     Global.getUser(id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                             User user = snapshot.getValue(User.class);
                             if(user != null){
                                 Constant.isAdmin =user.isAdmin();

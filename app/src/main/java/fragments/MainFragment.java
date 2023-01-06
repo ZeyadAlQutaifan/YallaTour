@@ -186,6 +186,7 @@ mostViewsRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),  Linea
         } else {
             latitude = tracker.getLatitude();
             longitude = tracker.getLongitude();
+
             Constant.LATITUDE = latitude;
             Constant.LONGITUDE = longitude;
             showWeatherStatus();
@@ -193,6 +194,7 @@ mostViewsRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),  Linea
     }
 
     private void showWeatherStatus() {
+
         // TODO Call open weather map, show result in frameWeatherData frame
         String weatherURL = Constant.WEATHER_URI +
                 Constant.LATITUDE_BLOCK.replace("{#}", String.valueOf(latitude)) +

@@ -3,6 +3,7 @@ package modules;
 import java.io.Serializable;
 
 public class Nearby implements Serializable {
+
     private String imgUrl;
     private String title;
     private String key;
