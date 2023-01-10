@@ -3,6 +3,7 @@ package com.example.yallatour;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,7 +52,10 @@ public class LoginActivity extends AppCompatActivity {
         inputs.add(etEmail);
         inputs.add(etPassword);
         if (Global.validField(inputs)) {
-
+            ProgressDialog mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setTitle("Signing in ");
+            mProgressDialog.setMessage("please wait ");
+            mProgressDialog.show();
             Constant.AUTH.signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
@@ -60,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                             // if login is success
                             Constant.USER = Constant.AUTH.getCurrentUser();
                             if (Constant.USER.isEmailVerified()) {
-
+mProgressDialog.dismiss();
                                 String id = Constant.USER.getUid();
                                 Global.getUser(id).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override

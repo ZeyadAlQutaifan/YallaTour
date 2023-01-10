@@ -3,6 +3,7 @@ package com.example.yallatour;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,7 +59,10 @@ public class SignupActivity extends AppCompatActivity {
 
         if (Global.validField( input)) {
 
-
+            ProgressDialog mProgressDialog = new ProgressDialog(SignupActivity.this);
+            mProgressDialog.setTitle("Creating account");
+            mProgressDialog.setMessage("Please wait ");
+            mProgressDialog.show();
             Constant.AUTH.createUserWithEmailAndPassword(etEmail.getText().toString() , etPassword.getText().toString())
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
@@ -70,6 +74,7 @@ public class SignupActivity extends AppCompatActivity {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 dialog.dismiss();
                                                 Constant.AUTH.signOut();
+                                                mProgressDialog.dismiss();
                                                 finish();
 
                                             }

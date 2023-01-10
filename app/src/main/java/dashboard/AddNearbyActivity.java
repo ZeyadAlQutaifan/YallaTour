@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class AddNearbyActivity extends AppCompatActivity {
     private TextView etTitle ;
     private ImageView nearbyImage ;
     private AutoCompleteTextView autoCompleteTextView ;
-
+    ProgressDialog mProgressDialog ;
     private Uri imageUri = null ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class AddNearbyActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(AddNearbyActivity.this, "Done", Toast.LENGTH_SHORT).show();
-
+mProgressDialog.dismiss();
                         finish();
                     }
                 });
@@ -77,7 +78,10 @@ public class AddNearbyActivity extends AppCompatActivity {
     }
 
     private   Task<UploadTask.TaskSnapshot> uploadImage() {
-
+        mProgressDialog = new ProgressDialog(this) ;
+        mProgressDialog.setTitle("Uploading Service ");
+        mProgressDialog.setMessage("Please Wait ") ;
+        mProgressDialog.show() ;
         Task<UploadTask.TaskSnapshot>  tasks = null;
         StorageReference imageName = Constant.nearbyImagesFolder.child(etTitle.getText().toString()).child(etTitle.getText().toString() + System.currentTimeMillis ());
 
