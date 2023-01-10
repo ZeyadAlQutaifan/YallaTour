@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         inputs.add(etPassword);
         if (Global.validField(inputs)) {
 
-            Constant.AUTH.signInWithEmailAndPassword("emaiil@emaiol.com", "password")
+            Constant.AUTH.signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
@@ -108,37 +108,17 @@ public class LoginActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            Global.dialogYesNo(LoginActivity.this, "Error" , e.getMessage(), true , new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
 
-                            // If login does not success
+                                }
+                            });
                             Log.v(Constant.TAG_V , e.getMessage());
                         }
                     });
         }
 
     }
-    private synchronized void isAdmin() {
-        synchronized (this){
 
-            Global.getUser(Constant.USER.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    User user = snapshot.getValue(User.class);
-                    if(user != null){
-                        Constant.isAdmin =user.isAdmin();
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-
-            notifyAll();
-
-        }
-
-    }
 }

@@ -57,14 +57,15 @@
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_right_16"
+                    android:layout_marginTop="@dimen/margin_top_8"
+                    android:layout_marginRight="@dimen/margin_right_16"
+                    android:layout_marginBottom="@dimen/margin_top_8"
+                    android:autofillHints=""
                     android:background="@drawable/edit_style"
                     android:drawableStart="@drawable/ic_person"
                     android:drawablePadding="@dimen/padding_16"
-                    android:hint="@string/user_name"
-                    android:layout_marginTop="@dimen/margin_top_8"
-                    android:layout_marginBottom="@dimen/margin_top_8"
-                    android:layout_marginLeft="@dimen/margin_right_16"
-                    android:layout_marginRight="@dimen/margin_right_16"
+                    android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:maxLength="30"
                     android:maxLines="1"
@@ -72,7 +73,6 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="@dimen/text_20"
-                    android:autofillHints=""
                     tools:ignore="SpUsage" />
 
 
