@@ -172,6 +172,7 @@ public class Global {
 
 
     public static void updateDashboard(int updateRequest) {
+
         Constant.dashboard.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -212,6 +213,7 @@ public class Global {
                             break;
                     }
                     Constant.dashboard.setValue(dashboard);
+
                 }else{
                     Dashboard dashboard = new Dashboard();
                     dashboard.setUsersCount(1);

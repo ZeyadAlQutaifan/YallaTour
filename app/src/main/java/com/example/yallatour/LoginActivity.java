@@ -115,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                             Global.dialogYesNo(LoginActivity.this, "Error", e.getMessage(), true, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
+                                    mProgressDialog.dismiss();
                                 }
                             });
                             Log.v(Constant.TAG_V, e.getMessage());
