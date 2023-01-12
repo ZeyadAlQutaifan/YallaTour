@@ -212,6 +212,10 @@ public class Global {
                             break;
                     }
                     Constant.dashboard.setValue(dashboard);
+                }else{
+                    Dashboard dashboard = new Dashboard();
+                    dashboard.setUsersCount(1);
+                    Constant.dashboard.setValue(dashboard);
                 }
 
             }

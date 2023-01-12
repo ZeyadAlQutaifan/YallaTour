@@ -63,15 +63,15 @@ public class LoginActivity extends AppCompatActivity {
 
                             // if login is success
                             Constant.USER = Constant.AUTH.getCurrentUser();
-                            if (Constant.USER.isEmailVerified()) {
-mProgressDialog.dismiss();
+                   //         if (Constant.USER.isEmailVerified()) {
+                                mProgressDialog.dismiss();
                                 String id = Constant.USER.getUid();
                                 Global.getUser(id).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         User user = snapshot.getValue(User.class);
-                                        if(user != null){
-                                            Constant.isAdmin =user.isAdmin();
+                                        if (user != null) {
+                                            Constant.isAdmin = user.isAdmin();
                                             if (Constant.isAdmin) {
                                                 startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                                                 finish();
@@ -89,36 +89,35 @@ mProgressDialog.dismiss();
                                     }
                                 });
 
-                            }else{
+                          /*  } else {
                                 Constant.USER.sendEmailVerification()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
+                                            @Override
+                                            public void onSuccess(Void unused) {
 
-                                       Global.dialogYesNo(LoginActivity.this, "Verification Email" , "Email Verification Hase been sent to your email address \n please verify your email then login" , true , new DialogInterface.OnClickListener() {
-                                           public void onClick(DialogInterface dialog, int id) {
-                                               dialog.dismiss();
-                                               Constant.AUTH.signOut();
-                                           }
-                                       });
-                                        Log.v(Constant.TAG_V , "send email verification ");
-                                        Constant.AUTH.signOut();
-                                    }
-                                });
-                            }
+                                                Global.dialogYesNo(LoginActivity.this, "Verification Email", "Email Verification Hase been sent to your email address \n please verify your email then login", true, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.dismiss();
+                                                        Constant.AUTH.signOut();
+                                                    }
+                                                });
+                                                Log.v(Constant.TAG_V, "send email verification ");
+                                                Constant.AUTH.signOut();
+                                            }
+                                        });
+                            }*/
                         }
 
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Global.dialogYesNo(LoginActivity.this, "Error" , e.getMessage(), true , new DialogInterface.OnClickListener() {
+                            Global.dialogYesNo(LoginActivity.this, "Error", e.getMessage(), true, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
-
                                 }
                             });
-                            Log.v(Constant.TAG_V , e.getMessage());
+                            Log.v(Constant.TAG_V, e.getMessage());
                         }
                     });
         }
