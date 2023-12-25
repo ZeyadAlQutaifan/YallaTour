@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.yallatour.R;
+import com.example.meshwar.R;
 
 public class PickImageDialog extends AlertDialog.Builder {
     private final LinearLayout pickFromCamera;

@@ -1,4 +1,4 @@
-package com.example.yallatour;
+package com.example.meshwar;
 
 import org.junit.Test;
 

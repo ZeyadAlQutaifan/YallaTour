@@ -1,22 +1,14 @@
-package com.example.yallatour;
+package com.example.meshwar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import adapters.PlaceAdapter;
 import fragments.MainFragment;
-import modules.Photos;
 
 public class Test extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 

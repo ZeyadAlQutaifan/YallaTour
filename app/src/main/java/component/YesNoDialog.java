@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.yallatour.R;
+import com.example.meshwar.R;
 
 public class YesNoDialog extends AlertDialog.Builder{
     View dialogView;

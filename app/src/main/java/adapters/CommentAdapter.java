@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yallatour.R;
+import com.example.meshwar.R;
 
 import java.util.ArrayList;
 import java.util.List;

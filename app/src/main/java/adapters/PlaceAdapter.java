@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.yallatour.PlaceActivity;
-import com.example.yallatour.R;
+import com.example.meshwar.PlaceActivity;
+import com.example.meshwar.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;

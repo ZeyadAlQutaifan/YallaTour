@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.yallatour.R;
+import com.example.meshwar.R;
 
 public class InputPasswordDialog extends AlertDialog.Builder {
     String inputText ;

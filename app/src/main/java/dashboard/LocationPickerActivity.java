@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.yallatour.R;
+import com.example.meshwar.R;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
